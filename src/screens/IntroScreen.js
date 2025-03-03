@@ -9,6 +9,7 @@ import {
   FlatList,
   Dimensions
 } from 'react-native';
+import Styles from '../constants/styles';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -38,6 +39,19 @@ const slidesData = [
 const IntroScreen = () => {
   const navigation = useNavigation();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToLogin = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'LoginScreen' }],
+    });
+  };
+
+  const goToSignUp = () => {
+    navigation.replace('SignUpScreen');
+  };
+  
+  const [isGetStartedPressed, setIsGetStartedPressed] = useState(false);
 
   // Config for FlatList viewability
   const viewabilityConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
@@ -88,18 +102,24 @@ const IntroScreen = () => {
       {/* Fixed bottom area with buttons */}
       <View style={styles.buttonArea}>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('SignUpScreen')}
+          activeOpacity={1}
+          style={[styles.button, isGetStartedPressed && styles.buttonPressed]}
+          onPressIn={() => setIsGetStartedPressed(true)}
+          onPressOut={() => setIsGetStartedPressed(false)}
+          onPress={() => goToSignUp()}
         >
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-          <Text style={styles.signInText}>
-            Got an account? <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.bottomRow}>
+          <Text style={styles.bottomText}>Got an account? </Text>
+          <TouchableOpacity onPress={() => goToLogin()}
+            activeOpacity={1}>
+            <Text style={styles.registerNow}>Log in</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
     </View>
   );
 };
@@ -109,7 +129,21 @@ export default IntroScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Styles.Colors.background,
+  },
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomText: {
+    fontSize: 14,
+    color: '#666',
+  },
+  registerNow: {
+    fontSize: 14,
+    color: Styles.Colors.Button.background,
+    fontWeight: '600',
   },
   swipeArea: {
     flex: 3,
@@ -135,16 +169,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     marginVertical: 8,
+    color: Styles.Colors.Text.primary
   },
   subtitle: {
     fontSize: 14,
-    color: '#666',
     textAlign: 'center',
     marginHorizontal: 30,
+    color: Styles.Colors.Text.content,
   },
   dotContainer: {
     flexDirection: 'row',
-    marginTop: 15,
+    marginTop: 5,
   },
   dot: {
     width: 10,
@@ -153,10 +188,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: '#00aced',
+    backgroundColor: Styles.Colors.active
   },
   inactiveDot: {
-    backgroundColor: '#ccc',
+    backgroundColor: Styles.Colors.inactive
   },
   buttonArea: {
     flex: 1,
@@ -165,19 +200,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   button: {
-    backgroundColor: '#00aced',
+    backgroundColor: Styles.Colors.Button.background,
     paddingVertical: 12,
     width: '80%', // increased width for Get Started button
     alignItems: 'center',
     borderRadius: 5,
     marginBottom: 15,
   },
+  buttonPressed: {
+    backgroundColor: Styles.Colors.Button.clicked,
+  },
   buttonText: {
-    color: '#fff',
+    color: Styles.Colors.Button.text,
     fontSize: 16,
   },
   signInText: {
-    color: '#333',
+    color: Styles.Colors.Text.primary,
     fontSize: 14,
   },
 });

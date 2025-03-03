@@ -19,6 +19,13 @@ const SignUpScreen = () => {
 
     const navigation = useNavigation();
 
+    const goToLogin = () => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'LoginScreen' }],
+      });
+    };
+
   return (
     <View style={styles.container}>
       {/* Centered Logo */}
@@ -94,7 +101,7 @@ const SignUpScreen = () => {
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Already have an account? </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('LoginScreen')}
+          onPress={() => goToLogin()}
         >
           <Text style={styles.registerNow}>Login Now</Text>
         </TouchableOpacity>

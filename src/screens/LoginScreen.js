@@ -18,6 +18,11 @@ const { width } = Dimensions.get('window');
 const LoginScreen = () => {
 
     const navigation = useNavigation();
+
+    const goToSignUp = () => {
+      navigation.replace('SignUpScreen');
+    };
+
   return (
     <View style={styles.container}>
       {/* Centered Logo */}
@@ -82,7 +87,7 @@ const LoginScreen = () => {
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Don’t have an account? </Text>
         <TouchableOpacity
-            onPress={() => navigation.navigate('SignUpScreen')}
+            onPress={() => goToSignUp()}
         >
           <Text style={styles.registerNow}>Register Now</Text>
         </TouchableOpacity>

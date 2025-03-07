@@ -9,11 +9,11 @@ import {
   Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import EyeTextInput from '../components/EyeTextInput'; // For password
 import { TextInput } from 'react-native-gesture-handler'; // or from 'react-native' if you prefer
-
-const { width } = Dimensions.get('window');
+import Colors from '../constants/colors';
 
 const LoginScreen = () => {
 
@@ -40,7 +40,7 @@ const LoginScreen = () => {
         <TextInput
           style={styles.emailInput}
           placeholder="Enter your email"
-          placeholderTextColor="#999"
+          placeholderTextColor={Colors.medium}  
         />
       </View>
 
@@ -71,15 +71,15 @@ const LoginScreen = () => {
       {/* Social buttons row */}
       <View style={styles.socialRow}>
         <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialIcon}>F</Text>
+          <Icon name="facebook" size={24} color="#4267B2" />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialIcon}>G</Text>
+          <Icon name="google" size={24} color="#DB4437" />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.socialButton}>
-          <Text style={styles.socialIcon}>A</Text>
+          <Icon name="apple" size={24} color="#000" />
         </TouchableOpacity>
       </View>
 
@@ -101,7 +101,7 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.veryLight,
     paddingHorizontal: 20,
     paddingTop: 40,
     alignItems: 'center', // Center logo horizontally
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     height: 60,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.light,
     borderRadius: 8,
     marginBottom: 15,
     padding: 10,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   emailInput: {
     fontSize: 16,
     padding: 12,
-    color: '#000',
+    color: Colors.dark,
   },
   forgotContainer: {
     alignSelf: 'flex-end',
@@ -137,10 +137,10 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     fontSize: 12,
-    color: '#007AFF', // Blue color for forgot password
+    color: Colors.highlight // Blue color for forgot password
   },
   loginButton: {
-    backgroundColor: '#333',
+    backgroundColor: Colors.highlight,
     paddingVertical: 14,
     borderRadius: 8,
     width: '100%',
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   loginButtonText: {
-    color: '#fff',
+    color: Colors.light,
     fontSize: 16,
     fontWeight: '500',
   },
@@ -161,11 +161,11 @@ const styles = StyleSheet.create({
   orLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#EAEAEA',
+    backgroundColor: Colors.light,
   },
   orText: {
     marginHorizontal: 8,
-    color: '#666',
+    color: Colors.medium,
     fontSize: 14,
   },
   socialRow: {
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     width: 90,
     height: 55,
     borderRadius: 8,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.light,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -192,11 +192,11 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 14,
-    color: '#666',
+    color: Colors.medium,
   },
   registerNow: {
     fontSize: 14,
-    color: '#007AFF',
+    color: Colors.highlight,
     fontWeight: '600',
   },
 });

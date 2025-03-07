@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text
 } from 'react-native';
+import Colors from '../constants/colors';
 
 const EyeTextInput = ({
   placeholder,
@@ -22,7 +23,7 @@ const EyeTextInput = ({
       <TextInput
         style={[styles.input, inputStyle]}
         placeholder={placeholder}
-        placeholderTextColor="#999"
+        placeholderTextColor= {Colors.medium}
         secureTextEntry={isSecure}
         onChangeText={onChangeText}
       />
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.light,
     borderRadius: 8,
     marginBottom: 15,
     padding: 10,

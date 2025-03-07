@@ -9,7 +9,7 @@ import {
   FlatList,
   Dimensions
 } from 'react-native';
-import Styles from '../constants/styles';
+import Colors from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -129,7 +129,7 @@ export default IntroScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Styles.Colors.background,
+    backgroundColor: Colors.veryLight,
   },
   bottomRow: {
     flexDirection: 'row',
@@ -138,11 +138,11 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 14,
-    color: '#666',
+    color: Colors.medium,
   },
   registerNow: {
     fontSize: 14,
-    color: Styles.Colors.Button.background,
+    color: Colors.highlight,
     fontWeight: '600',
   },
   swipeArea: {
@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     marginVertical: 8,
-    color: Styles.Colors.Text.primary
+    color: Colors.dark,
   },
   subtitle: {
     fontSize: 14,
     textAlign: 'center',
     marginHorizontal: 30,
-    color: Styles.Colors.Text.content,
+    color: Colors.medium,
   },
   dotContainer: {
     flexDirection: 'row',
@@ -188,10 +188,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: Styles.Colors.active
+    backgroundColor: Colors.highlight
   },
   inactiveDot: {
-    backgroundColor: Styles.Colors.inactive
+    backgroundColor: Colors.mediumLight
   },
   buttonArea: {
     flex: 1,
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   button: {
-    backgroundColor: Styles.Colors.Button.background,
+    backgroundColor: Colors.highlight,
     paddingVertical: 12,
     width: '80%', // increased width for Get Started button
     alignItems: 'center',
@@ -208,14 +208,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   buttonPressed: {
-    backgroundColor: Styles.Colors.Button.clicked,
+    backgroundColor: Colors.highlight,
   },
   buttonText: {
-    color: Styles.Colors.Button.text,
+    color: Colors.light,
     fontSize: 16,
   },
   signInText: {
-    color: Styles.Colors.Text.primary,
+    color: Colors.highlight,
     fontSize: 14,
   },
 });

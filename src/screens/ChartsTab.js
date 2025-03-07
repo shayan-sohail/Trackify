@@ -1,24 +1,24 @@
-// src/screens/HomeScreen.js
+// src/screens/ChartsTab.js
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const HomeScreen = () => {
+const ChartsTab = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello</Text>
+      <Text style={styles.text}>Charts</Text>
     </View>
   );
 };
 
+export default ChartsTab;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     fontSize: 24,
   },
 });
-
-export default HomeScreen;

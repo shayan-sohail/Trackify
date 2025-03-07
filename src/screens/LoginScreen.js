@@ -23,6 +23,11 @@ const LoginScreen = () => {
       navigation.replace('SignUpScreen');
     };
 
+    // Updated: on login press, navigate to LoadingScreen
+    const onLoginPress = () => {
+      navigation.replace('LoadingScreen');
+    };
+
   return (
     <View style={styles.container}>
       {/* Centered Logo */}
@@ -57,7 +62,7 @@ const LoginScreen = () => {
       </TouchableOpacity>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={onLoginPress}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
 

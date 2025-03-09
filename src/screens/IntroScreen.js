@@ -5,12 +5,13 @@ import {
   Text,
   Image,
   StyleSheet,
-  TouchableOpacity,
   FlatList,
   Dimensions
 } from 'react-native';
-import Colors from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
+
+import Colors from '../constants/colors';
+import MyButton from '../components/MyButton';
 
 const { width } = Dimensions.get('window');
 
@@ -51,8 +52,6 @@ const IntroScreen = () => {
     navigation.replace('SignUpScreen');
   };
   
-  const [isGetStartedPressed, setIsGetStartedPressed] = useState(false);
-
   // Config for FlatList viewability
   const viewabilityConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
   const onViewableItemsChanged = useRef(({ viewableItems }) => {
@@ -101,22 +100,21 @@ const IntroScreen = () => {
 
       {/* Fixed bottom area with buttons */}
       <View style={styles.buttonArea}>
-        <TouchableOpacity
-          activeOpacity={1}
-          style={[styles.button, isGetStartedPressed && styles.buttonPressed]}
-          onPressIn={() => setIsGetStartedPressed(true)}
-          onPressOut={() => setIsGetStartedPressed(false)}
+        <MyButton
+          style={styles.button}
           onPress={() => goToSignUp()}
         >
           <Text style={styles.buttonText}>Get Started</Text>
-        </TouchableOpacity>
+        </MyButton>
 
         <View style={styles.bottomRow}>
           <Text style={styles.bottomText}>Got an account? </Text>
-          <TouchableOpacity onPress={() => goToLogin()}
-            activeOpacity={1}>
+          <MyButton onPress={() => goToLogin()} 
+            style={styles.registerNowButton} 
+            onClickedBackgroundColor="transparent" 
+            onClickedTextColor={Colors.highlightMedium}>
             <Text style={styles.registerNow}>Log in</Text>
-          </TouchableOpacity>
+          </MyButton>
         </View>
       </View>
 
@@ -140,7 +138,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.medium,
   },
+  registerNowButton: {
+    backgroundColor: 'transparent',
+  },
   registerNow: {
+    backgroundColor: 'transparent',
     fontSize: 14,
     color: Colors.highlight,
     fontWeight: '600',
@@ -200,22 +202,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   button: {
-    backgroundColor: Colors.highlight,
-    paddingVertical: 12,
     width: '80%', // increased width for Get Started button
-    alignItems: 'center',
-    borderRadius: 5,
-    marginBottom: 15,
-  },
-  buttonPressed: {
-    backgroundColor: Colors.highlight,
   },
   buttonText: {
     color: Colors.light,
     fontSize: 16,
-  },
-  signInText: {
-    color: Colors.highlight,
-    fontSize: 14,
   },
 });

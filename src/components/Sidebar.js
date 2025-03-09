@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-start',
     paddingVertical: 14,
     paddingHorizontal: 16,
     backgroundColor: 'transparent',

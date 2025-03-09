@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  TouchableOpacity,
   StyleSheet,
   SafeAreaView,
   Platform,
@@ -12,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomTabs from './BottomTabs';
 import Colors from '../constants/colors';
 import Sidebar from '../components/Sidebar';
+import MyButton from '../components/MyButton';
 
 const TOP_BAR_HEIGHT = 50;
 const ICON_SIZE = 24;
@@ -31,18 +31,18 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.safeArea}>
       {/* Fixed top row */}
       <View style={styles.topBar}>
-        <TouchableOpacity style={styles.iconButton} onPress={openDrawer}>
+        <MyButton style={styles.iconButton} onPress={openDrawer} onClickedBackgroundColor={Colors.mediumLight}>
           <Icon name="menu" size={ICON_SIZE} color={Colors.dark} />
-        </TouchableOpacity>
+        </MyButton>
 
         <View style={styles.rightIcons}>
-          <TouchableOpacity style={styles.iconButton}>
+          <MyButton style={styles.iconButton} onClickedBackgroundColor={Colors.mediumLight}>
             <Icon name="magnify" size={ICON_SIZE} color={Colors.dark} />
-          </TouchableOpacity>
+          </MyButton>
 
-          <TouchableOpacity style={styles.iconButton}>
+          <MyButton style={styles.iconButton} onClickedBackgroundColor={Colors.mediumLight}>
             <Icon name="account-circle" size={ICON_SIZE} color={Colors.dark} />
-          </TouchableOpacity>
+          </MyButton>
         </View>
       </View>
 
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     zIndex: 1, // Lower zIndex for top bar
   },
   iconButton: {
+    backgroundColor: 'transparent',
     padding: 5,
   },
   rightIcons: {

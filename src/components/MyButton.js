@@ -1,12 +1,13 @@
 // src/components/MyButton.js
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Colors from '../constants/colors';
 
 const MyButton = ({
   onPress,
   style,
-  onClickedBackgroundColor = '#FFCC00',
-  onClickedTextColor = '#000',
+  onClickedBackgroundColor = Colors.highlightMedium,
+  onClickedTextColor = Colors.veryLight,
   children,
 }) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -47,8 +48,11 @@ export default MyButton;
 
 const styles = StyleSheet.create({
   button: {
+    backgroundColor: Colors.highlight,
     paddingVertical: 12,
+    borderRadius: 5,
     flexDirection: 'row', // so icon + text can appear side by side
     alignItems: 'center',
+    justifyContent: 'center', // center content horizontally
   },
 });

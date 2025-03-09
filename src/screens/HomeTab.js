@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import MyButton from '../components/MyButton'; // For password
 
 const HomeTab = () => {
   return (

@@ -4,16 +4,16 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   Image,
-  Dimensions
 } from 'react-native';
+
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import EyeTextInput from '../components/EyeTextInput'; // For password
 import { TextInput } from 'react-native-gesture-handler'; // or from 'react-native' if you prefer
 import Colors from '../constants/colors';
+import MyButton from '../components/MyButton';
 
 const LoginScreen = () => {
 
@@ -57,45 +57,50 @@ const LoginScreen = () => {
       />
 
       {/* Forgot Password link */}
-      <TouchableOpacity style={styles.forgotContainer}>
-        <Text style={styles.forgotText}>Forgot Password?</Text>
-      </TouchableOpacity>
+      <MyButton onPress={() => goToLogin()} 
+        style={styles.forgotContainer} 
+        onClickedBackgroundColor="transparent" 
+        onClickedTextColor={Colors.highlightMedium}>
+        <Text style={styles.forgotText}>Forgot Password</Text>
+      </MyButton>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton} onPress={onLoginPress}>
+      <MyButton
+          style={styles.loginButton}
+          onPress={onLoginPress}
+        >
         <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
+      </MyButton>
 
       {/* Or Login with */}
       <View style={styles.orContainer}>
         <View style={styles.orLine} />
-        <Text style={styles.orText}>Or Login with</Text>
+        <Text style={styles.orText}>or</Text>
         <View style={styles.orLine} />
       </View>
 
       {/* Social buttons row */}
-      <View style={styles.socialRow}>
-        <TouchableOpacity style={styles.socialButton}>
-          <Icon name="facebook" size={24} color="#4267B2" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.socialButton}>
-          <Icon name="google" size={24} color="#DB4437" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.socialButton}>
-          <Icon name="apple" size={24} color="#000" />
-        </TouchableOpacity>
-      </View>
+      <MyButton
+        style={styles.googleLoginButton}
+        onClickedBackgroundColor={Colors.mediumLight}
+        onClickedTextColor={Colors.veryDark}
+        onPress={() => console.log('Login with Google pressed')}
+      >
+        <Icon name="google" size={24} color="#DB4437" style={styles.googleIcon} />
+        <Text style={styles.googleText}>Login with Google</Text>
+      </MyButton>
 
       {/* Bottom Register */}
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Don’t have an account? </Text>
-        <TouchableOpacity
+        <MyButton
+            style={styles.registerNowButton}
+            onClickedBackgroundColor='transparent'
+            onClickedTextColor={Colors.highlightMedium}
             onPress={() => goToSignUp()}
         >
           <Text style={styles.registerNow}>Register Now</Text>
-        </TouchableOpacity>
+        </MyButton>
       </View>
     </View>
   );
@@ -138,6 +143,8 @@ const styles = StyleSheet.create({
   },
   forgotContainer: {
     alignSelf: 'flex-end',
+    backgroundColor: 'transparent',
+    paddingVertical: 0,
     marginBottom: 20,
   },
   forgotText: {
@@ -173,22 +180,22 @@ const styles = StyleSheet.create({
     color: Colors.medium,
     fontSize: 14,
   },
-  socialRow: {
+  googleLoginButton: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width: '100%',
-    marginBottom: 30,
-  },
-  socialButton: {
-    width: 90,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',         // full width button
     height: 55,
     borderRadius: 8,
     backgroundColor: Colors.light,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginVertical: 10,
   },
-  socialIcon: {
-    fontSize: 20,
+  googleIcon: {
+    marginRight: 10,
+  },
+  googleText: {
+    fontSize: 16,
+    color: Colors.dark,
   },
   bottomRow: {
     flexDirection: 'row',
@@ -198,6 +205,10 @@ const styles = StyleSheet.create({
   bottomText: {
     fontSize: 14,
     color: Colors.medium,
+  },
+  registerNowButton: {
+    backgroundColor: 'transparent',
+    paddingVertical: 5,
   },
   registerNow: {
     fontSize: 14,

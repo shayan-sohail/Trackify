@@ -7,6 +7,7 @@ import IntroScreen from '../screens/IntroScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
+import OTPVerificationScreen from '../screens/OTPVerificationScreen';
 import HomeScreen from '../screens/HomeScreen';
 
 const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ const AppNavigator = () => {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="OTPVerificationScreen" component={OTPVerificationScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

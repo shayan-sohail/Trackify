@@ -8,7 +8,6 @@ import Colors from '../constants/colors';
 // Placeholder screens
 import HomeTab from './HomeTab';
 import BudgetTab from './BudgetTab';
-import AddTab from './AddTab';
 import LogsTab from './LogsTab';
 import ChartsTab from './ChartsTab';
 
@@ -33,9 +32,6 @@ const BottomTabs = () => {
             case 'Budget':
               iconName = 'wallet';
               break;
-            case 'Add':
-              iconName = 'plus-circle';
-              break;
             case 'Logs':
               iconName = 'file-document';
               break;
@@ -49,7 +45,6 @@ const BottomTabs = () => {
     >
       <Tab.Screen name="Home" component={HomeTab} />
       <Tab.Screen name="Budget" component={BudgetTab} />
-      <Tab.Screen name="Add" component={AddTab} />
       <Tab.Screen name="Logs" component={LogsTab} />
       <Tab.Screen name="Charts" component={ChartsTab} />
     </Tab.Navigator>

@@ -31,17 +31,17 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.safeArea}>
       {/* Fixed top row */}
       <View style={styles.topBar}>
-        <MyButton style={styles.iconButton} onPress={openDrawer} onClickedBackgroundColor={Colors.mediumLight}>
-          <Icon name="menu" size={ICON_SIZE} color={Colors.dark} />
+        <MyButton style={styles.iconButton} onPress={openDrawer} onClickedBackgroundColor='transparent'>
+          <Icon name="menu" size={ICON_SIZE} color={Colors.veryLight} />
         </MyButton>
 
         <View style={styles.rightIcons}>
-          <MyButton style={styles.iconButton} onClickedBackgroundColor={Colors.mediumLight}>
-            <Icon name="magnify" size={ICON_SIZE} color={Colors.dark} />
+          <MyButton style={styles.iconButton} onClickedBackgroundColor='transparent'>
+            <Icon name="magnify" size={ICON_SIZE} color={Colors.veryLight} />
           </MyButton>
 
-          <MyButton style={styles.iconButton} onClickedBackgroundColor={Colors.mediumLight}>
-            <Icon name="account-circle" size={ICON_SIZE} color={Colors.dark} />
+          <MyButton style={styles.iconButton} onClickedBackgroundColor='transparent'>
+            <Icon name="account-circle" size={ICON_SIZE} color={Colors.veryLight} />
           </MyButton>
         </View>
       </View>
@@ -64,12 +64,11 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.veryLight,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   topBar: {
     height: TOP_BAR_HEIGHT,
-    backgroundColor: Colors.light,
+    backgroundColor: Colors.highlight,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

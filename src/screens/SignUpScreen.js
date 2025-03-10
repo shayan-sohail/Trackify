@@ -28,6 +28,13 @@ const SignUpScreen = () => {
       });
     };
 
+    const goToOTPValidation = () => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'OTPVerificationScreen' }],
+      });
+    };
+
   return (
     <View style={styles.container}>
       {/* Centered Logo */}
@@ -73,7 +80,7 @@ const SignUpScreen = () => {
       />
 
       {/* Register Button */}
-      <MyButton style={styles.registerButton}>
+      <MyButton style={styles.registerButton} onPress={() => goToOTPValidation()}>
         <Text style={styles.loginButtonText}>Register</Text>
       </MyButton>
 

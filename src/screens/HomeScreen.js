@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomTabs from './BottomTabs';
+import ToggleIconButton from '../components/ToggleIconButton';
 import Colors from '../constants/colors';
 import Sidebar from '../components/Sidebar';
 import MyButton from '../components/MyButton';
@@ -31,18 +32,33 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.safeArea}>
       {/* Fixed top row */}
       <View style={styles.topBar}>
-        <MyButton style={styles.iconButton} onPress={openDrawer} onClickedBackgroundColor='transparent'>
-          <Icon name="menu" size={ICON_SIZE} color={Colors.veryLight} />
-        </MyButton>
+        <ToggleIconButton
+          icon1="menu"
+          size={ICON_SIZE}
+          color1= {Colors.veryLight}
+          onPressed={(state) => openDrawer()}
+          value={drawerVisible}
+        />
 
         <View style={styles.rightIcons}>
-          <MyButton style={styles.iconButton} onClickedBackgroundColor='transparent'>
-            <Icon name="magnify" size={ICON_SIZE} color={Colors.veryLight} />
-          </MyButton>
-
-          <MyButton style={styles.iconButton} onClickedBackgroundColor='transparent'>
-            <Icon name="account-circle" size={ICON_SIZE} color={Colors.veryLight} />
-          </MyButton>
+          <ToggleIconButton
+          icon1="magnify"
+          size={ICON_SIZE}
+          color1= {Colors.veryLight}
+          color2={Colors.highlightMedium}
+          style={styles.iconButton}
+          value={drawerVisible}
+          onPressed={(state) => openDrawer()}
+          />
+          <ToggleIconButton
+          icon1="account-circle"
+          size={ICON_SIZE}
+          color1= {Colors.veryLight}
+          color2={Colors.highlightMedium}
+          style={styles.iconButton}
+          value={drawerVisible}
+          onPressed={(state) => openDrawer()}
+          />
         </View>
       </View>
 

@@ -6,34 +6,61 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import EyeTextInput from '../components/EyeTextInput'; // for password fields
-import { TextInput } from 'react-native-gesture-handler';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import IconTextInput from '../components/IconTextInput';
 import Colors from '../constants/colors';
 import MyButton from '../components/MyButton';
 
 const { width } = Dimensions.get('window');
 
+// Validation schema using Yup
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(30, 'Name must be at most 30 characters')
+    .required('Name is required'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .max(32, 'Password must be at most 32 characters')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
+});
+
 const SignUpScreen = () => {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      // If all checks pass, print the object with name, email, and password
+      const { name, email, password } = values;
+      console.log({ name, email, password });
+      navigation.replace('LoadingScreen');
+    },
+  });
 
-    const goToLogin = () => {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'LoginScreen' }],
-      });
-    };
-
-    const goToOTPValidation = () => {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'OTPVerificationScreen' }],
-      });
-    };
+  const goToLogin = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'LoginScreen' }],
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -47,14 +74,20 @@ const SignUpScreen = () => {
       {/* Title */}
       <Text style={styles.title}>Hello! Register to get started</Text>
 
-      {/* Username Field */}
+      {/* Name Field */}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
-          placeholder="Username"
+          placeholder="Name"
           placeholderTextColor={Colors.medium}
+          value={formik.values.name}
+          onChangeText={formik.handleChange('name')}
+          onBlur={formik.handleBlur('name')}
         />
       </View>
+      {formik.submitCount > 0 && formik.errors.name && (
+        <Text style={styles.errorText}>{formik.errors.name}</Text>
+      )}
 
       {/* Email Field */}
       <View style={styles.inputContainer}>
@@ -62,25 +95,47 @@ const SignUpScreen = () => {
           style={styles.textInput}
           placeholder="Email"
           placeholderTextColor={Colors.medium}
+          value={formik.values.email}
+          onChangeText={formik.handleChange('email')}
+          onBlur={formik.handleBlur('email')}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
       </View>
+      {formik.submitCount > 0 && formik.errors.email && (
+        <Text style={styles.errorText}>{formik.errors.email}</Text>
+      )}
 
       {/* Password Field (with eye icon) */}
-      <EyeTextInput
+      <IconTextInput
         placeholder="Password"
         secureTextEntry={true}
-        containerStyle={{ marginBottom: 15 }}
+        containerStyle={styles.inputContainer}
+        value={formik.values.password}
+        isSecureInput={true}
+        onChangeText={formik.handleChange('password')}
+        onBlur={formik.handleBlur('password')}
       />
+      {formik.submitCount > 0 && formik.errors.password && (
+        <Text style={styles.errorText}>{formik.errors.password}</Text>
+      )}
 
       {/* Confirm Password Field (with eye icon) */}
-      <EyeTextInput
+      <IconTextInput
         placeholder="Confirm password"
         secureTextEntry={true}
-        containerStyle={{ marginBottom: 15 }}
+        containerStyle={styles.inputContainer}
+        value={formik.values.confirmPassword}
+        isSecureInput={true}
+        onChangeText={formik.handleChange('confirmPassword')}
+        onBlur={formik.handleBlur('confirmPassword')}
       />
+      {formik.submitCount > 0 && formik.errors.confirmPassword && (
+        <Text style={styles.errorText}>{formik.errors.confirmPassword}</Text>
+      )}
 
       {/* Register Button */}
-      <MyButton style={styles.registerButton} onPress={() => goToOTPValidation()}>
+      <MyButton style={styles.registerButton} onPress={formik.handleSubmit}>
         <Text style={styles.loginButtonText}>Register</Text>
       </MyButton>
 
@@ -91,7 +146,7 @@ const SignUpScreen = () => {
         <View style={styles.orLine} />
       </View>
 
-      {/* Social buttons row */}
+      {/* Social button */}
       <MyButton
         style={styles.googleLoginButton}
         onPress={() => console.log('Login with Google pressed')}
@@ -106,7 +161,7 @@ const SignUpScreen = () => {
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Already have an account? </Text>
         <MyButton
-          onPress={() => goToLogin()}
+          onPress={goToLogin}
           style={styles.registerNowButton}
           onClickedBackgroundColor="transparent"
           onClickedTextColor={Colors.highlightMedium}
@@ -126,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.veryLight,
     paddingHorizontal: 20,
     paddingTop: 40,
-    alignItems: 'center', // Center logo horizontally
+    alignItems: 'center',
   },
   logo: {
     width: 150,
@@ -145,7 +200,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: Colors.light,
     borderRadius: 8,
-    marginBottom: 15,
+    marginVertical: 5,
     padding: 10,
   },
   textInput: {
@@ -155,7 +210,7 @@ const styles = StyleSheet.create({
   },
   registerButton: {
     width: '100%',
-    marginBottom: 25,
+    marginVertical: 15,
   },
   loginButtonText: {
     color: Colors.light,
@@ -165,7 +220,7 @@ const styles = StyleSheet.create({
   orContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
     width: '100%',
   },
   orLine: {
@@ -182,7 +237,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',         // full width button
+    width: '100%',
     height: 55,
     borderRadius: 8,
     backgroundColor: Colors.light,
@@ -212,5 +267,10 @@ const styles = StyleSheet.create({
   registerNowButton: {
     backgroundColor: 'transparent',
     paddingVertical: 5,
+  },
+  errorText: {
+    color: 'red',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 2,
   },
 });

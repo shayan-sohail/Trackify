@@ -10,7 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import EyeTextInput from '../components/EyeTextInput'; // For password
+import IconTextInput from '../components/IconTextInput'; // For password
 import { TextInput } from 'react-native-gesture-handler'; // or from 'react-native' if you prefer
 import Colors from '../constants/colors';
 import MyButton from '../components/MyButton';
@@ -50,10 +50,11 @@ const LoginScreen = () => {
       </View>
 
       {/* Password Field (with eye icon) */}
-      <EyeTextInput
+      <IconTextInput
         placeholder="Enter your password"
         secureTextEntry={true}
-        containerStyle={{ marginBottom: 5 }} // Slight gap before the forgot password link
+        containerStyle={{ marginBottom: 5 }}
+        isSecureInput={true}
       />
 
       {/* Forgot Password link */}

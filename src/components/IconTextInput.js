@@ -1,4 +1,4 @@
-// src/components/EyeTextInput.js
+// src/components/IconTextInput.js
 import React, { useState } from 'react';
 import {
   View,
@@ -8,13 +8,16 @@ import {
   Text
 } from 'react-native';
 import Colors from '../constants/colors';
+import ToggleIconButton from './ToggleIconButton';
 
-const EyeTextInput = ({
+//It is separate component, because we can reuse it for info fields
+const IconTextInput = ({
   placeholder,
   containerStyle,
   inputStyle,
   secureTextEntry = false,
   onChangeText,
+  isSecureInput = false,
 }) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
@@ -24,21 +27,21 @@ const EyeTextInput = ({
         style={[styles.input, inputStyle]}
         placeholder={placeholder}
         placeholderTextColor= {Colors.medium}
-        secureTextEntry={isSecure}
+        secureTextEntry={isSecureInput && isSecure}
         onChangeText={onChangeText}
       />
-      <TouchableOpacity
-        style={styles.eyeContainer}
-        onPress={() => setIsSecure(!isSecure)}
-      >
-        {/* Replace with a proper eye icon if you like */}
-        <Text style={styles.eyeIcon}>{isSecure ? '👁️' : '🙈'}</Text>
-      </TouchableOpacity>
+      <ToggleIconButton
+        icon1="eye"
+        icon2="eye-off"
+        color1= {Colors.medium}
+        color2={Colors.medium}
+        onPressed={(state) => {if (isSecureInput) setIsSecure(!isSecure)}}
+        />
     </View>
   );
 };
 
-export default EyeTextInput;
+export default IconTextInput;
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +51,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.light,
     borderRadius: 8,
-    marginBottom: 15,
     padding: 10,
   },
   input: {

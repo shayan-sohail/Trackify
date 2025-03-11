@@ -9,6 +9,8 @@ import {
   Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native'; 
+
 import Colors from '../constants/colors';
 import MyButton from '../components/MyButton';
 
@@ -31,7 +33,7 @@ const TRANSACTIONS = [
 
 const HomeTab = () => {
   const dataToShow = TRANSACTIONS.slice(0, 10);
-
+  const navigation = useNavigation();
   const renderItem = ({ item }) => (
     <View style={styles.transactionItem}>
       {/* Left icon box */}
@@ -65,7 +67,7 @@ const HomeTab = () => {
 
         {/* Income/Expense Row */}
         <View style={styles.incomeExpenseRow}>
-          <MyButton style={styles.incomeBox} onPress={() => console.log('Add pressed')}>
+          <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}>
             <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
             <View style={styles.ieTextContainer}>
               <Text style={styles.incomeText}>$34,678</Text>

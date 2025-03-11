@@ -10,35 +10,31 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native'; 
-
 import Colors from '../constants/colors';
 import MyButton from '../components/MyButton';
 
 const ICON_SIZE = 24;
 const TRANSACTIONS = [
-  { id: '1', title: 'Electricity Bill', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: '↓' },
-  { id: '2', title: 'Home Insurance', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Rent', color: '#D4F8D4', icon: '↑' },
-  { id: '3', title: 'Coffee Shops', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Dining', color: '#D4F8D4', icon: '↑' },
-  { id: '4', title: 'Marcus Bennett', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Healthcare', color: '#FFCFCF', icon: '↓' },
-  { id: '5', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '6', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '7', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '8', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '9', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '10', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '11', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '12', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
-  { id: '13', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: '↑' },
+  { id: '1', title: 'Electricity Bill', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
+  { id: '2', title: 'Home Insurance', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Rent', color: '#D4F8D4', icon: 'magnify' },
+  { id: '3', title: 'Coffee Shops', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Dining', color: '#D4F8D4', icon: 'magnify' },
+  { id: '4', title: 'Marcus Bennett', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Healthcare', color: '#FFCFCF', icon: 'magnify' },
+  { id: '5', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  // ... other transactions
 ];
 
 const HomeTab = () => {
   const dataToShow = TRANSACTIONS.slice(0, 10);
   const navigation = useNavigation();
+
   const renderItem = ({ item }) => (
-    <View style={styles.transactionItem}>
+    <TouchableOpacity
+      style={styles.transactionItem}
+      onPress={() => navigation.navigate("TransactionDetailsScreen", { transaction: item })}
+    >
       {/* Left icon box */}
       <View style={[styles.iconBox, { backgroundColor: item.color }]}>
-        <Text style={styles.iconText}>{item.icon}</Text>
+         <Icon name={item.icon} size={20} color={'black'} />
       </View>
 
       {/* Middle text */}
@@ -49,23 +45,20 @@ const HomeTab = () => {
 
       {/* Right side */}
       <View style={styles.rightContainer}>
-        <Text style={[styles.amount, item.icon === '↑' ? styles.income : styles.expense]}>
+        <Text style={[styles.amount, item.amount.startsWith("+") ? styles.income : styles.expense]}>
           {item.amount}
         </Text>
         <Text style={styles.category}>{item.category}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       {/* Top Section */}
       <View style={styles.topSection}>
-        {/* Centered label & value */}
         <Text style={styles.totalBalanceLabel}>Total Balance</Text>
         <Text style={styles.totalBalanceValue}>$120,908</Text>
-
-        {/* Income/Expense Row */}
         <View style={styles.incomeExpenseRow}>
           <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}>
             <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
@@ -77,7 +70,6 @@ const HomeTab = () => {
               <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color='green' />
             </View>
           </MyButton>
-
           <MyButton style={styles.expenseBox} onPress={() => console.log('Add pressed')}>
             <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
             <View style={styles.ieTextContainer}>
@@ -88,23 +80,17 @@ const HomeTab = () => {
               <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color='#ef625c' />
             </View>
           </MyButton>
-        </View>
-
-        {/* Circular Add Button at the end (bottom-right) */}
-        
+        </View>        
       </View>
 
-      {/* White Section with Transactions */}
+      {/* Bottom Section with Transactions */}
       <View style={styles.bottomSection}>
-        {/* Title row */}
         <View style={styles.titleRow}>
           <Text style={styles.recentTransactions}>Recent Transactions</Text>
           <TouchableOpacity onPress={() => console.log('View All pressed')}>
             <Text style={styles.viewAll}>View All</Text>
           </TouchableOpacity>
         </View>
-
-        {/* Transactions list */}
         <FlatList
           data={dataToShow}
           keyExtractor={(item) => item.id}
@@ -128,13 +114,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 40,
     paddingBottom: 40,
-    marginBottom:-10,
-    // everything centered
+    marginBottom: -10,
     alignItems: 'center',
-    position: 'relative', // needed for addButton absolute
+    position: 'relative',
   },
   totalBalanceLabel: {
-    marginTop:-20,
+    marginTop: -20,
     fontSize: 18,
     color: '#fff',
     marginBottom: 5,
@@ -153,7 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   incomeBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)', // Example with 50% opacity
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     flex: 1,
     marginRight: 5,
     borderRadius: 10,
@@ -163,7 +148,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   expenseBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)', // Example with 50% opacity
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     flex: 1,
     marginLeft: 5,
     borderRadius: 10,
@@ -182,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
     marginRight: 25,
-    marginLeft:-4,
+    marginLeft: -4,
   },
   incomeText: {
     fontSize: 16,
@@ -192,15 +177,13 @@ const styles = StyleSheet.create({
   expenseText: {
     fontSize: 16,
     fontWeight: '600',
-    color: Colors.veryLight
+    color: Colors.veryLight,
   },
   addButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    paddingVertical:0,
-    paddingHorizontal:0,
-    backgroundColor: Colors.light,
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -216,8 +199,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: -10,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     paddingTop: 20,
     paddingHorizontal: 20,
   },
@@ -228,13 +211,13 @@ const styles = StyleSheet.create({
   },
   recentTransactions: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '500',
     color: Colors.dark,
   },
   viewAll: {
     fontSize: 14,
     color: Colors.highlight,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   listContainer: {
     paddingBottom: 20,
@@ -249,7 +232,7 @@ const styles = StyleSheet.create({
   iconBox: {
     width: 40,
     height: 40,
-    borderRadius: 8,
+    borderRadius: 20,
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',

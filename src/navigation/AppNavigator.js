@@ -9,6 +9,8 @@ import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import OTPVerificationScreen from '../screens/OTPVerificationScreen';
 import HomeScreen from '../screens/HomeScreen';
+import TransactionDetailsScreen from '../screens/TransactionDetailsScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -22,6 +24,7 @@ const AppNavigator = () => {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="OTPVerificationScreen" component={OTPVerificationScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="TransactionDetailsScreen" component={TransactionDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

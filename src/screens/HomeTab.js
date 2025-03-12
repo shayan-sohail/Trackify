@@ -6,10 +6,9 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 import Colors from '../constants/colors';
 import MyButton from '../components/MyButton';
 
@@ -20,11 +19,23 @@ const TRANSACTIONS = [
   { id: '3', title: 'Coffee Shops', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Dining', color: '#D4F8D4', icon: 'magnify' },
   { id: '4', title: 'Marcus Bennett', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Healthcare', color: '#FFCFCF', icon: 'magnify' },
   { id: '5', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  // ... other transactions
+  { id: '6', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '7', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '8', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '9', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '10', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '11', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '12', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '13', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '14', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '15', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '16', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '17', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '18', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
 ];
 
 const HomeTab = () => {
-  const dataToShow = TRANSACTIONS.slice(0, 10);
+  const dataToShow = TRANSACTIONS;
   const navigation = useNavigation();
 
   const renderItem = ({ item }) => (
@@ -32,18 +43,13 @@ const HomeTab = () => {
       style={styles.transactionItem}
       onPress={() => navigation.navigate("TransactionDetailsScreen", { transaction: item })}
     >
-      {/* Left icon box */}
       <View style={[styles.iconBox, { backgroundColor: item.color }]}>
-         <Icon name={item.icon} size={20} color={'black'} />
+        <Icon name={item.icon} size={20} color="black" />
       </View>
-
-      {/* Middle text */}
       <View style={styles.midContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.date}>{item.date}</Text>
       </View>
-
-      {/* Right side */}
       <View style={styles.rightContainer}>
         <Text style={[styles.amount, item.amount.startsWith("+") ? styles.income : styles.expense]}>
           {item.amount}
@@ -54,72 +60,85 @@ const HomeTab = () => {
   );
 
   return (
-    <View style={styles.container}>
-      {/* Top Section */}
-      <View style={styles.topSection}>
-        <Text style={styles.totalBalanceLabel}>Total Balance</Text>
-        <Text style={styles.totalBalanceValue}>$120,908</Text>
-        <View style={styles.incomeExpenseRow}>
-          <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}>
-            <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
-            <View style={styles.ieTextContainer}>
-              <Text style={styles.incomeText}>$34,678</Text>
-              <Text style={styles.label}>Income</Text>
-            </View>
-            <View style={styles.addButton}>
-              <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color='green' />
-            </View>
-          </MyButton>
-          <MyButton style={styles.expenseBox} onPress={() => console.log('Add pressed')}>
-            <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
-            <View style={styles.ieTextContainer}>
-              <Text style={styles.expenseText}>$19,678</Text>
-              <Text style={styles.label}>Expense</Text>
-            </View>
-            <View style={styles.addButton}>
-              <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color='#ef625c' />
-            </View>
-          </MyButton>
-        </View>        
-      </View>
-
-      {/* Bottom Section with Transactions */}
-      <View style={styles.bottomSection}>
-        <View style={styles.titleRow}>
-          <Text style={styles.recentTransactions}>Recent Transactions</Text>
-          <TouchableOpacity onPress={() => console.log('View All pressed')}>
-            <Text style={styles.viewAll}>View All</Text>
-          </TouchableOpacity>
+  <FlatList
+    data={dataToShow}
+    keyExtractor={(item) => item.id}
+    renderItem={renderItem}
+    ListHeaderComponent={() => (
+      <>
+        {/* Full-width top section (no horizontal padding) */}
+        <View style={styles.topSection}>
+          <Text style={styles.totalBalanceLabel}>Total Balance</Text>
+          <Text style={styles.totalBalanceValue}>$120,908</Text>
+          <View style={styles.incomeExpenseRow}>
+            <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}>
+              <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
+              <View style={styles.ieTextContainer}>
+                <Text style={styles.incomeText}>$34,678</Text>
+                <Text style={styles.label}>Income</Text>
+              </View>
+              <View style={styles.addButton}>
+                <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="green" />
+              </View>
+            </MyButton>
+            <MyButton style={styles.expenseBox} onPress={() => console.log('Add pressed')}>
+              <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
+              <View style={styles.ieTextContainer}>
+                <Text style={styles.expenseText}>$19,678</Text>
+                <Text style={styles.label}>Expense</Text>
+              </View>
+              <View style={styles.addButton}>
+                <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="#ef625c" />
+              </View>
+            </MyButton>
+          </View>
         </View>
-        <FlatList
-          data={dataToShow}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          contentContainerStyle={styles.listContainer}
-        />
-      </View>
-    </View>
-  );
+
+        {/* Padded container for the “Recent Transactions” heading */}
+        <View style={styles.headerPadding}>
+          <View style={styles.titleRow}>
+            <Text style={styles.recentTransactions}>Recent Transactions</Text>
+            <TouchableOpacity onPress={() => console.log('View All pressed')}>
+              <Text style={styles.viewAll}>View All</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
+    )}
+    contentContainerStyle={styles.listContainer}
+  />
+);
 };
 
 export default HomeTab;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  // The entire list background, bottom padding
+  listContainer: {
     backgroundColor: Colors.veryLight,
+    paddingBottom: 20,
   },
+
+  // Container for the top header
+  headerContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 30,
+    paddingBottom: 20,
+  },
+
+  // The top section with the blue background
   topSection: {
     backgroundColor: Colors.highlight,
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    paddingBottom: 40,
-    marginBottom: -10,
+    padding: 20,
     alignItems: 'center',
-    position: 'relative',
+    marginBottom: 20,
+  },
+  headerPadding: {
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    backgroundColor: Colors.veryLight,
   },
   totalBalanceLabel: {
-    marginTop: -20,
     fontSize: 18,
     color: '#fff',
     marginBottom: 5,
@@ -138,9 +157,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   incomeBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: 'rgba(255,255,255,0.15)',
     flex: 1,
-    marginRight: 5,
+    marginRight: 8,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -148,26 +167,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   expenseBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: 'rgba(255,255,255,0.15)',
     flex: 1,
-    marginLeft: 5,
+    marginLeft: 8,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
   },
   circleIcon: {
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 15,
+    marginRight: 12,
   },
   ieTextContainer: {
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
-    marginRight: 25,
-    marginLeft: -4,
+    marginRight: 20,
   },
   incomeText: {
     fontSize: 16,
@@ -195,19 +213,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.veryLight,
   },
-  bottomSection: {
-    flex: 1,
-    marginTop: -10,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    paddingTop: 20,
-    paddingHorizontal: 20,
-  },
+
+  // Title row for the transactions
   titleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 10,
   },
   recentTransactions: {
     fontSize: 18,
@@ -219,13 +231,13 @@ const styles = StyleSheet.create({
     color: Colors.highlight,
     fontWeight: '500',
   },
-  listContainer: {
-    paddingBottom: 20,
-  },
+
+  // Transaction item
   transactionItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 12,
+    paddingHorizontal: 20,
     borderBottomWidth: 0.5,
     borderBottomColor: '#eee',
   },
@@ -236,10 +248,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  iconText: {
-    fontSize: 16,
-    color: Colors.dark,
   },
   midContainer: {
     flex: 1,

@@ -1,5 +1,5 @@
 // src/screens/HomeTab.js
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../constants/colors';
 import MyButton from '../components/MyButton';
+import BiStateModalBox from '../components/BiStateModalBox';
 
 const ICON_SIZE = 24;
 const TRANSACTIONS = [
@@ -37,6 +38,7 @@ const TRANSACTIONS = [
 const HomeTab = () => {
   const dataToShow = TRANSACTIONS;
   const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -58,6 +60,17 @@ const HomeTab = () => {
       </View>
     </TouchableOpacity>
   );
+
+  const onLeftPress = () => {
+    // e.g., close modal
+    setShowModal(false);
+  };
+
+  const onRightPress = () => {
+    // e.g., confirm action, then close
+    console.log('Confirmed expense');
+    setShowModal(false);
+  };
 
   return (
   <FlatList
@@ -81,7 +94,7 @@ const HomeTab = () => {
                 <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="green" />
               </View>
             </MyButton>
-            <MyButton style={styles.expenseBox} onPress={() => console.log('Add pressed')}>
+            <MyButton style={styles.expenseBox} onPress={() => setShowModal(true)}>
               <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
               <View style={styles.ieTextContainer}>
                 <Text style={styles.expenseText}>$19,678</Text>
@@ -93,6 +106,18 @@ const HomeTab = () => {
             </MyButton>
           </View>
         </View>
+
+        {/* The modal box itself */}
+        <BiStateModalBox
+          visible={showModal}
+          title="Add Expense"
+          subtitle="Do you want to add a new expense?"
+          leftButtonText="Cancel"
+          rightButtonText="Confirm"
+          onLeftPress={onLeftPress}
+          onRightPress={onRightPress}
+          onRequestClose={() => setShowModal(false)}
+        />
 
         {/* Padded container for the “Recent Transactions” heading */}
         <View style={styles.headerPadding}>

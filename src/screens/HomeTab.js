@@ -14,25 +14,26 @@ import MyButton from '../components/MyButton';
 import BiStateModalBox from '../components/BiStateModalBox';
 
 const ICON_SIZE = 24;
+
 const TRANSACTIONS = [
-  { id: '1', title: 'Electricity Bill', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
-  { id: '2', title: 'Home Insurance', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Rent', color: '#D4F8D4', icon: 'magnify' },
-  { id: '3', title: 'Coffee Shops', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Dining', color: '#D4F8D4', icon: 'magnify' },
-  { id: '4', title: 'Marcus Bennett', date: '13 Jun, 5:30PM', amount: '-$2,89.50', category: 'Healthcare', color: '#FFCFCF', icon: 'magnify' },
-  { id: '5', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '6', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '7', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '8', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '9', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '10', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '11', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '12', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '13', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '14', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '15', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '16', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '17', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
-  { id: '18', title: 'Parking Fees', date: '13 Jun, 5:30PM', amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '1', title: 'Electricity Bill', date: new Date('2024-03-13T17:30:00'), amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
+  { id: '2', title: 'Home Insurance', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Rent', color: '#D4F8D4', icon: 'magnify' },
+  { id: '3', title: 'Coffee Shops', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Dining', color: '#D4F8D4', icon: 'magnify' },
+  { id: '4', title: 'Marcus Bennett', date: new Date('2024-03-13T17:30:00'), amount: '-$2,89.50', category: 'Healthcare', color: '#FFCFCF', icon: 'magnify' },
+  { id: '5', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '6', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '7', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '8', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '9', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '10', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '11', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '12', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '13', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '14', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '15', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '16', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '17', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
+  { id: '18', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
 ];
 
 const HomeTab = () => {
@@ -50,7 +51,9 @@ const HomeTab = () => {
       </View>
       <View style={styles.midContainer}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.date}>{item.date}</Text>
+        <Text style={styles.date}>
+          {item.date.toLocaleDateString()} {item.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </Text>
       </View>
       <View style={styles.rightContainer}>
         <Text style={[styles.amount, item.amount.startsWith("+") ? styles.income : styles.expense]}>
@@ -84,7 +87,8 @@ const HomeTab = () => {
           <Text style={styles.totalBalanceLabel}>Total Balance</Text>
           <Text style={styles.totalBalanceValue}>$120,908</Text>
           <View style={styles.incomeExpenseRow}>
-            <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}>
+            {/* <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}> */}
+            <MyButton style={styles.incomeBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'income' })}>
               <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
               <View style={styles.ieTextContainer}>
                 <Text style={styles.incomeText}>$34,678</Text>
@@ -94,7 +98,8 @@ const HomeTab = () => {
                 <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="green" />
               </View>
             </MyButton>
-            <MyButton style={styles.expenseBox} onPress={() => setShowModal(true)}>
+            {/* <MyButton style={styles.expenseBox} onPress={() => setShowModal(true)}> */}
+            <MyButton style={styles.expenseBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'expense' })}>
               <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
               <View style={styles.ieTextContainer}>
                 <Text style={styles.expenseText}>$19,678</Text>

@@ -1,150 +1,382 @@
-// src/screens/TransactionDetailsScreen.js
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, Dimensions, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ComboBox from '../components/ComboBox';
-import Colors from '../constants/colors';
 import MyDatePicker from '../components/MyDatePicker';
+import MyButton from '../components/MyButton';
+import Colors from '../constants/colors';
+import BiStateModalBox from '../components/BiStateModalBox';
+
+const { width } = Dimensions.get('window');
 
 const TransactionDetailsScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { transaction } = route.params;
-  
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
+  const transaction = route.params?.transaction;
+  const transactionType = route.params?.transactionType;
 
+  const [category, setCategory] = useState('');
+  const [amount, setAmount] = useState('');
+  const [name, setName] = useState('');
   const [date, setDate] = useState(new Date());
-  const [pickerVisible, setPickerVisible] = useState(false);
+  const [notes, setNotes] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [attachment, setAttachment] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [isModified, setIsModified] = useState(false);
+  const [showMoreFields, setShowMoreFields] = useState(true);
 
-  const [selected, setSelected] = useState('apple');
-  const items = [
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
-    { label: 'Cherry', value: 'cherry' },
+  useEffect(() => {
+    if (transaction) {
+      setCategory(transaction.category || '');
+      // Remove '-' or '+' from amount
+      setAmount(transaction.amount?.replace(/[+-]/, '') || '');
+      setName(transaction.title || '');
+      setDate(new Date(transaction.date) || new Date());
+    }
+  }, [transaction]);
+
+  const handleFieldChange = (field, value) => {
+    if (transaction) {
+      let isChanged = false;
+      switch (field) {
+        case 'category':
+          setCategory(value);
+          isChanged = value !== transaction.category;
+          break;
+        case 'amount':
+          setAmount(value);
+          isChanged = value !== transaction.amount?.replace(/[+-]/, '');
+          break;
+        case 'name':
+          setName(value);
+          isChanged = value !== transaction.title;
+          break;
+        case 'date':
+          setDate(value);
+          isChanged = value.getTime() !== new Date(transaction.date).getTime();
+          break;
+      }
+      setIsModified(isChanged);
+    } else {
+      // For new transactions, just update the field
+      switch (field) {
+        case 'category': setCategory(value); break;
+        case 'amount': setAmount(value); break;
+        case 'name': setName(value); break;
+        case 'date': setDate(value); break;
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    // Handle delete logic here
+    console.log('Delete transaction:', transaction);
+    setShowModal(true);
+  };
+
+  const categories = [
+    { label: 'Food', value: 'food' },
+    { label: 'Transport', value: 'transport' },
+    { label: 'Entertainment', value: 'entertainment' },
+    { label: 'Shopping', value: 'shopping' },
   ];
 
-  const onUpdate = () => {
-    // Implement update logic as needed
-    console.log('Update pressed for:', transaction);
+  const handleAdd = () => {
+    const transactionData = {
+      category,
+      amount: transaction?.amount?.startsWith('+') ? `+${amount}` : `-${amount}`,
+      name,
+      date
+    };
+    console.log(transactionData);
     navigation.goBack();
   };
 
-  const onDelete = () => {
-    // Implement delete logic as needed
-    console.log('Delete pressed for:', transaction);
+  const getScreenTitle = () => {
+    if (transactionType) return transactionType == 'income' ? 'Add Income' : 'Add Expense';
+    const baseTitle = transaction.amount?.startsWith('+') ? 'Income Details' : 'Expense Details';
+    return isModified ? `*${baseTitle}` : baseTitle;
+  };
+
+  const handleShowMoreFields = () => {
+    setShowMoreFields(true);
+  };
+
+  const onLeftPress = () => {
+    // e.g., close modal
+    setShowModal(false);
+  };
+
+  const onRightPress = () => {
+    // e.g., confirm action, then close
+    console.log('Confirmed expense');
+    setShowModal(false);
     navigation.goBack();
+  };
+
+  const formatDate = (date) => {
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'short', 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric'
+    });
+  };
+
+  const handleAttachment = () => {
+    // Handle attachment logic here
+    console.log('Add attachment pressed');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Transaction Details</Text>
-      <View style={styles.detailsContainer}>
-        <Text style={styles.detailLabel}>Title: <Text style={styles.detailValue}>{transaction.title}</Text></Text>
-        <Text style={styles.detailLabel}>Date: <Text style={styles.detailValue}>{transaction.date}</Text></Text>
-        <Text style={styles.detailLabel}>Amount: <Text style={styles.detailValue}>{transaction.amount}</Text></Text>
-        <Text style={styles.detailLabel}>Category: <Text style={styles.detailValue}>{transaction.category}</Text></Text>
-        <Text style={styles.detailLabel}>Color: <Text style={styles.detailValue}>{transaction.color}</Text></Text>
-        <Text style={styles.detailLabel}>Icon: <Text style={styles.detailValue}>{transaction.icon}</Text></Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.screenTitle}>{getScreenTitle()}</Text>
+        {transaction && (
+          <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
+            <Icon name="delete" size={24} color={Colors.dark} />
+          </TouchableOpacity>
+        )}
       </View>
-      <TouchableOpacity style={styles.button} onPress={onUpdate}>
-        <Text style={styles.buttonText}>Update</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={onDelete}>
-        <Text style={styles.buttonText}>Delete</Text>
-      </TouchableOpacity>
 
-
-      <View style={styles.container}>
+      {/* Scrollable Content */}
+      <ScrollView style={styles.scrollContainer}>
+      <View style={styles.form}>
+        <Text style={styles.label}>Category</Text>
         <ComboBox
-          items={items}
-          selectedValue={selected}
-          onValueChange={(val) => setSelected(val)}
-          initialValue="apple"
+          items={categories}
+          selectedValue={category}
+          onValueChange={(value) => handleFieldChange('category', value)}
         />
-      </View>
 
-      <View style={styles.container}>
-        <Text style={styles.label}>Selected Date:</Text>
-        <Text style={styles.dateText}>{selectedDate.toLocaleDateString()}</Text>
-        <TouchableOpacity style={styles.openButton} onPress={() => setShowPicker(true)}>
-          <Text style={styles.openButtonText}>Open Date Picker</Text>
+        <Text style={styles.label}>Amount</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter amount"
+            placeholderTextColor={Colors.medium}
+            value={amount}
+            onChangeText={(value) => handleFieldChange('amount', value)}
+            keyboardType="numeric"
+          />
+        </View>
+
+        <Text style={styles.label}>Date</Text>
+        <TouchableOpacity 
+          style={styles.inputContainer}
+          onPress={() => setShowDatePicker(true)}
+        >
+          <Text style={styles.dateText}>
+            {formatDate(date)}
+          </Text>
         </TouchableOpacity>
 
-        <MyDatePicker
-          visible={showPicker}
-          initialDate={selectedDate}
-          onDateChange={(date) => setSelectedDate(date)}
-          onRequestClose={() => setShowPicker(false)}
-        />
+        <Text style={styles.label}>Name</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter transaction name"
+            placeholderTextColor={Colors.medium}
+            value={name}
+            onChangeText={(value) => handleFieldChange('name', value)}
+          />
+        </View>
+        
+        {/* ... Name field remains the same ... */}
+
+        {!showMoreFields && (
+          <MyButton
+            style={styles.moreFieldsButton}
+            onPress={handleShowMoreFields}
+            onClickedBackgroundColor="transparent"
+            onClickedTextColor={Colors.highlightMedium}
+          >
+            <Text style={styles.moreFieldsText}>More fields</Text>
+          </MyButton>
+        )}
+        
+        {showMoreFields && (
+          <>
+            <Text style={styles.label}>Notes</Text>
+            <View style={[styles.inputContainer, styles.notesContainer]}>
+              <TextInput
+                style={[styles.textInput, styles.notesInput]}
+                placeholder="Enter notes"
+                placeholderTextColor={Colors.medium}
+                value={notes}
+                onChangeText={setNotes}
+                multiline={true}
+                numberOfLines={4}
+              />
+            </View>
+
+            <Text style={styles.label}>Attachment (Max 5)</Text>
+            <MyButton 
+              style={styles.attachmentButton}
+              onPress={handleAttachment}
+            >
+              <Text style={styles.attachmentButtonText}>Add Attachment</Text>
+            </MyButton>
+            <Text>Max attachment 2MB</Text>
+          </>
+        )}
+        </View>
+      </ScrollView>
+
+      <View style={styles.buttonContainer}>
+        <MyButton 
+          style={styles.cancelButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.buttonText}>Cancel</Text>
+        </MyButton>
+        <MyButton 
+          style={styles.addButton}
+          onPress={handleAdd}
+        >
+          <Text style={styles.buttonText}>{transaction ? 'Update' : 'Add'}</Text>
+        </MyButton>
       </View>
+
+      <MyDatePicker
+        visible={showDatePicker}
+        initialDate={date}
+        onDateChange={(newDate) => {
+          handleFieldChange('date', newDate);
+          setShowDatePicker(false);
+        }}
+        onRequestClose={() => setShowDatePicker(false)}
+      />
+
+      {/* The modal box itself */}
+      <BiStateModalBox
+        visible={showModal}
+        title="Add Expense"
+        subtitle="Do you want to add a new expense?"
+        leftButtonText="Cancel"
+        rightButtonText="Confirm"
+        onLeftPress={onLeftPress}
+        onRightPress={onRightPress}
+        onRequestClose={() => setShowModal(false)}
+      />
+
     </View>
   );
 };
-
-export default TransactionDetailsScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
-    padding: 20,
-    justifyContent: 'center',
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-    color: Colors.dark,
-  },
-  detailsContainer: {
-    marginBottom: 30,
-  },
-  detailLabel: {
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 5,
-    color: Colors.dark,
-  },
-  detailValue: {
-    fontWeight: 'normal',
-    color: Colors.medium,
-  },
-  button: {
-    backgroundColor: Colors.highlight,
-    paddingVertical: 14,
-    borderRadius: 8,
+  titleContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    justifyContent: 'space-between',
+    padding: 20,
+    paddingTop: 50,
+    backgroundColor: Colors.veryLight,
+  },
+  scrollContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  form: {
+    gap: 12,
+    paddingBottom: 20,
+  },
+  screenTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.dark,
+    flex: 1,
   },
   deleteButton: {
-    backgroundColor: 'red',
+    padding: 8,
   },
-  buttonText: {
-    color: Colors.light,
-    fontSize: 16,
-    fontWeight: '500',
-  },
-
   label: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 16,
+    fontWeight: '600',
+    color: Colors.dark,
+    marginTop: 8,
+  },
+  inputContainer: {
+    width: '100%',
+    height: 60,
+    backgroundColor: Colors.light,
+    borderRadius: 8,
+    marginVertical: 5,
+    padding: 10,
+    justifyContent: 'center',
+  },
+  textInput: {
+    fontSize: 16,
+    padding: 12,
     color: Colors.dark,
   },
-  dateText: {
-    fontSize: 18,
-    marginBottom: 20,
-    color: Colors.medium,
+  buttonContainer: {
+    padding: 20,
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 20,
   },
-  openButton: {
-    backgroundColor: Colors.highlight,
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
+  cancelButton: {
+    flex: 1,
+    backgroundColor: Colors.medium,
+    height: 60,
   },
-  openButtonText: {
-    color: '#fff',
+  addButton: {
+    flex: 1,
+    height: 60,
+  },
+  buttonText: {
+    color: Colors.veryLight,
     fontSize: 16,
+    fontWeight: '600',
+  },
+  dateButtonText: {
+    color: Colors.dark,
+    fontSize: 16,
+    paddingHorizontal: 12,
+  },
+  dateText: {
+    fontSize: 16,
+    color: Colors.dark,
+    paddingHorizontal: 12,
+    textAlign: 'left',
+  },
+  moreFieldsButton: {
+    backgroundColor: 'transparent',
+    paddingVertical: 10,
+    marginTop: 10,
+  },
+  moreFieldsText: {
+    fontSize: 14,
+    color: Colors.highlight,
+    fontWeight: '600',
+  },
+  notesContainer: {
+    height: 120,
+    padding: 12,
+  },
+  notesInput: {
+    height: '100%',
+    textAlignVertical: 'top',
+  },
+  attachmentButton: {
+    backgroundColor: Colors.light,
+    height: 60,
+    marginVertical: 5,
+    justifyContent: 'center',
+  },
+  attachmentButtonText: {
+    color: Colors.dark,
+    fontSize: 16,
+    textAlign: 'left',
+    paddingHorizontal: 12,
   },
 });
+
+export default TransactionDetailsScreen;

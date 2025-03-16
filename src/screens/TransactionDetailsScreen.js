@@ -8,7 +8,6 @@ import MyButton from '../components/MyButton';
 import Colors from '../constants/colors';
 import BiStateModalBox from '../components/BiStateModalBox';
 
-const { width } = Dimensions.get('window');
 
 const TransactionDetailsScreen = () => {
   const route = useRoute();
@@ -30,7 +29,6 @@ const TransactionDetailsScreen = () => {
   useEffect(() => {
     if (transaction) {
       setCategory(transaction.category || '');
-      // Remove '-' or '+' from amount
       setAmount(transaction.amount?.replace(/[+-]/, '') || '');
       setName(transaction.title || '');
       setDate(new Date(transaction.date) || new Date());
@@ -71,7 +69,6 @@ const TransactionDetailsScreen = () => {
   };
 
   const handleDelete = () => {
-    // Handle delete logic here
     console.log('Delete transaction:', transaction);
     setShowModal(true);
   };
@@ -105,12 +102,10 @@ const TransactionDetailsScreen = () => {
   };
 
   const onLeftPress = () => {
-    // e.g., close modal
     setShowModal(false);
   };
 
   const onRightPress = () => {
-    // e.g., confirm action, then close
     console.log('Confirmed expense');
     setShowModal(false);
     navigation.goBack();
@@ -126,7 +121,6 @@ const TransactionDetailsScreen = () => {
   };
 
   const handleAttachment = () => {
-    // Handle attachment logic here
     console.log('Add attachment pressed');
   };
 
@@ -270,22 +264,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
+    padding: 20
   },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 20,
     paddingTop: 50,
     backgroundColor: Colors.veryLight,
   },
   scrollContainer: {
     flex: 1,
-    padding: 20,
   },
   form: {
-    gap: 12,
-    paddingBottom: 20,
+    gap: 8,
   },
   screenTitle: {
     fontSize: 24,
@@ -294,7 +286,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   deleteButton: {
-    padding: 8,
   },
   label: {
     fontSize: 16,
@@ -307,8 +298,6 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: Colors.light,
     borderRadius: 8,
-    marginVertical: 5,
-    padding: 10,
     justifyContent: 'center',
   },
   textInput: {
@@ -317,7 +306,6 @@ const styles = StyleSheet.create({
     color: Colors.dark,
   },
   buttonContainer: {
-    padding: 20,
     flexDirection: 'row',
     gap: 12,
     marginTop: 20,
@@ -339,7 +327,7 @@ const styles = StyleSheet.create({
   dateButtonText: {
     color: Colors.dark,
     fontSize: 16,
-    paddingHorizontal: 12,
+    padding: 12,
   },
   dateText: {
     fontSize: 16,
@@ -358,9 +346,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   notesContainer: {
-    height: 120,
-    padding: 12,
-  },
+    height: 200,
+    },
   notesInput: {
     height: '100%',
     textAlignVertical: 'top',

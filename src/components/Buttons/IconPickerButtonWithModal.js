@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../../constants/colors';
 
-const IconPickerButton = ({ 
+const IconPickerButtonWithModal = ({ 
   items, 
   selectedIndex = 0,
   chevronType = 'single', // 'single', 'double', 'none'
@@ -165,4 +165,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IconPickerButton;
+export default IconPickerButtonWithModal;

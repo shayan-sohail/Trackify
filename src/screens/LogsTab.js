@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconMultiPickerButton from '../components/Buttons/IconMultiPickerButton';
-import IconPickerButton from '../components/Buttons/IconPickerButton';
+import IconMultiPickerButtonWithModal from '../components/Buttons/IconMultiPickerButtonWithModal';
+import IconPickerButtonWithModal from '../components/Buttons/IconPickerButtonWithModal';
+import IconPickerButtonCycling from '../components/Buttons/IconPickerButtonCycling';
 import Colors from '../constants/colors';
 
 // Using the same transaction data from HomeTab
@@ -35,10 +36,10 @@ const LogsTab = () => {
   const [selectedIconIndex, setSelectedIconIndex] = useState(0);
 
   const categoryOptions = [
-    { icon: 'food', label: 'Food' },
-    { icon: 'car', label: 'Transport' },
-    { icon: 'shopping', label: 'Shopping' },
-    { icon: 'movie', label: 'Entertainment' },
+    { icon: 'food', icon2: 'arrow-top-right', label: 'Food' },
+    { icon: 'car', icon2: 'arrow-bottom-right', label: 'Transport' },
+    { icon: 'shopping', icon2: 'arrow-top-right', label: 'Shopping' },
+    { icon: 'movie', icon2: 'arrow-bottom-right', label: 'Entertainment' },
   ];
 
   const dateOptions = [
@@ -80,7 +81,7 @@ const LogsTab = () => {
       <View style={styles.titleRow}>
         <Text style={styles.headerTitle}>Transactions</Text>
         <View style={styles.filtersContainer}>
-          <IconPickerButton
+          <IconPickerButtonWithModal
             items={typeOptions}
             selectedIndex={selectedIconIndex}
             onSelect={setSelectedIconIndex}
@@ -88,15 +89,15 @@ const LogsTab = () => {
             size={15}
             style={styles.filterButton}
           />
-          <IconPickerButton
+          <IconPickerButtonCycling
             items={dateOptions}
             selectedIndex={selectedDates}
             onSelect={setSelectedDates}
             showLabel={true}
+            chevronType='double'
             size={15}
-            style={styles.filterButton}
           />
-          <IconMultiPickerButton
+          <IconMultiPickerButtonWithModal
             items={categoryOptions}
             selectedItems={selectedCategories}
             onSelect={setSelectedCategories}
@@ -104,6 +105,8 @@ const LogsTab = () => {
             defaultIcon="filter-variant"
             showLabel={false}
             size={15}
+            sortItems={true}
+            showSelectionControls={true}
             style={styles.filterButton}
           />
         </View>

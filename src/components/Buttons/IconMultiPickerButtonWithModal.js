@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   View, 
   TouchableOpacity, 
@@ -11,30 +11,61 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../../constants/colors';
 
-const IconMultiPickerButton = ({ 
-    items,
-    selectedItems = [],
-    chevronType = 'single',
-    onSelect,
-    showLabel = true,
-    defaultLabel,
-    defaultIcon,
-    style,
-    size = 24
+const IconMultiPickerButtonWithModal = ({ 
+  items,
+  selectedItems = [],
+  chevronType = 'single',
+  onSelect,
+  showLabel = true,
+  defaultLabel,
+  defaultIcon,
+  style,
+  size = 24,
+  showSelectionControls = true, // New prop
+  sortItems = false, // New prop
 }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [localSelected, setLocalSelected] = useState(selectedItems);
+const [modalVisible, setModalVisible] = useState(false);
+const [localSelected, setLocalSelected] = useState(selectedItems);
+const [sortedItems, setSortedItems] = useState(items);
 
   useEffect(() => {
     setLocalSelected(selectedItems);
   }, [selectedItems]);
   
+  useEffect(() => {
+    if (sortItems) {
+      const sorted = [...items].sort((a, b) => a.label.localeCompare(b.label));
+      setSortedItems(sorted);
+    } else {
+      setSortedItems(items);
+    }
+  }, [items, sortItems]);
+
   const getChevronIcon = () => {
     switch(chevronType) {
       case 'single': return 'chevron-down';
       case 'double': return 'unfold-more-horizontal';
       default: return null;
     }
+  };
+
+  const isAllSelected = () => {
+    return localSelected.length === sortedItems.length && sortedItems.length > 0;
+  };
+
+  const isNoneSelected = () => {
+    return localSelected.length === 0;
+  };
+
+  const handleSelectAll = () => {
+    const allIndices = sortedItems.map((_, index) => index);
+    setLocalSelected(allIndices);
+    onSelect(allIndices);
+  };
+
+  const handleDeselectAll = () => {
+    setLocalSelected([]);
+    onSelect([]);
   };
 
   const toggleSelection = (index) => {
@@ -70,6 +101,13 @@ const IconMultiPickerButton = ({
       <Text style={styles.menuItemText}>
         {item.label}
       </Text>
+      {item.icon2 && (
+        <Icon 
+          name={item.icon2} 
+          size={size} 
+          color={Colors.dark}
+        />
+      )}
     </TouchableOpacity>
   );
 
@@ -138,9 +176,39 @@ const IconMultiPickerButton = ({
             <View style={styles.menuContainer}>
               <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>Select Items</Text>
+                {showSelectionControls && (
+                  <View style={styles.headerControls}>
+                    <TouchableOpacity 
+                      onPress={handleSelectAll}
+                      style={[
+                        styles.headerButton,
+                        isAllSelected() && styles.headerButtonActive
+                      ]}
+                    >
+                      <Icon 
+                        name="checkbox-multiple-marked" 
+                        size={size} 
+                        color={isAllSelected() ? Colors.highlight : Colors.medium}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                      onPress={handleDeselectAll}
+                      style={[
+                        styles.headerButton,
+                        isNoneSelected() && styles.headerButtonActive
+                      ]}
+                    >
+                      <Icon 
+                        name="checkbox-multiple-blank-outline" 
+                        size={size} 
+                        color={isNoneSelected() ? Colors.highlight : Colors.medium}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
               <FlatList
-                data={items}
+                data={sortedItems}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
                 style={styles.menuList}
@@ -210,9 +278,23 @@ const styles = StyleSheet.create({
     width: 24,
   },
   modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.light,
+  },
+  headerControls: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  headerButton: {
+    padding: 4,
+    borderRadius: 4,
+  },
+  headerButtonActive: {
+    backgroundColor: Colors.light,
   },
   modalTitle: {
     fontSize: 18,
@@ -224,4 +306,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IconMultiPickerButton;
+export default IconMultiPickerButtonWithModal;

@@ -2,6 +2,9 @@ class Colors {
     static highlightMedium    = '#135db2';
     static highlight    = '#1c85ff';
 
+    static dangerMedium    = '#c04253';
+    static danger    = '#f3546a';
+
     static veryLight    = '#FDFDFD'; 
     static light        = '#EEEEEE'; 
     static mediumLight  = '#DDDDDD'; 

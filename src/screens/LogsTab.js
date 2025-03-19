@@ -43,7 +43,7 @@ const LogsTab = () => {
   ];
 
   const dateOptions = [
-    { icon: 'calendar-import', label: 'Earliest' },
+    { icon: 'calendar-import', label: 'Newest' },
     { icon: 'calendar-export', label: 'Oldest' },
   ];
 

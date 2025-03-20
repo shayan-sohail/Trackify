@@ -1,13 +1,17 @@
-// src/components/ComboBox.js
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const ComboBox = ({ items, selectedValue, onValueChange, initialValue }) => {
+const ComboBox = ({ 
+  items, 
+  selectedValue, 
+  onValueChange, 
+  initialValue,
+  style 
+}) => {
   const [value, setValue] = useState(initialValue || (items.length > 0 ? items[0].value : ''));
 
   useEffect(() => {
-    // If a controlled selectedValue is provided, sync it with local state
     if (selectedValue !== undefined && selectedValue !== value) {
       setValue(selectedValue);
     }
@@ -21,22 +25,28 @@ const ComboBox = ({ items, selectedValue, onValueChange, initialValue }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Picker
         selectedValue={value}
-        style={styles.picker}
+        style={[
+          styles.picker,
+          Platform.OS === 'android' && styles.androidPicker
+        ]}
+        dropdownIconColor="#000000"
         onValueChange={handleValueChange}
-        mode="dropdown"  // For a native dropdown look on Android
+        mode="dropdown"
       >
         {items.map((item) => (
-          <Picker.Item key={item.value} label={item.label} value={item.value} />
+          <Picker.Item 
+            key={item.value} 
+            label={item.label} 
+            value={item.value}
+          />
         ))}
       </Picker>
     </View>
   );
 };
-
-export default ComboBox;
 
 const styles = StyleSheet.create({
   container: {
@@ -44,9 +54,16 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 8,
     overflow: 'hidden',
+    backgroundColor: '#fff',
   },
   picker: {
     height: 60,
-    width: '100%',
+    width: '100%', // Wider on iOS to account for dropdown
   },
+  pickerItem: {
+    fontSize: 16,
+    height: 60,
+  }
 });
+
+export default ComboBox;

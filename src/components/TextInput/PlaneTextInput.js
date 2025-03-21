@@ -14,6 +14,7 @@ const PlaneTextInput = ({
   isSecureText = false,
   isNumeric = false,
   style,
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [value, setValue] = useState('');
@@ -60,9 +61,8 @@ const PlaneTextInput = ({
       onChangeText={handleTextChange}
       value={value}
       secureTextEntry={isSecureText}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
       keyboardType={isNumeric ? 'numeric' : 'default'}
+      {...props}
     />
   );
 };

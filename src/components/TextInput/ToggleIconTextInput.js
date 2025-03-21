@@ -20,9 +20,10 @@ const ToggleIconTextInput = ({
   icon2,
   iconSize = 24,
   iconColor = Colors.medium,
-  position = 'left',
+  position = 'right',
   onIconClicked,
   initialToggleState = false,
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [toggleState, setToggleState] = useState(initialToggleState);
@@ -91,6 +92,7 @@ const ToggleIconTextInput = ({
         onBlur={() => setIsFocused(false)}
         value={value}
         keyboardType={isNumeric ? 'numeric' : 'default'}
+        {...props}
       />
     </View>
   );

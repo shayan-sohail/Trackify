@@ -1,5 +1,5 @@
 // src/screens/LoginScreen.js
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,15 +10,17 @@ import {
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import IconTextInput from '../components/IconTextInput'; // For password
-import { TextInput } from 'react-native-gesture-handler'; // or from 'react-native' if you prefer
 import Colors from '../constants/colors';
-import MyButton from '../components/MyButton';
+import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import BaseButton from '../components/Buttons/BaseButton';
+import PlaneTextInput from '../components/TextInput/PlaneTextInput';
+import ToggleIconTextInput from '../components/TextInput/ToggleIconTextInput';
+
 
 const LoginScreen = () => {
 
     const navigation = useNavigation();
-
+    const [isSecurePassword, setIsSecurePassword] = useState(false);
     const goToSignUp = () => {
       navigation.replace('SignUpScreen');
     };
@@ -41,37 +43,35 @@ const LoginScreen = () => {
       <Text style={styles.title}>Welcome back! Glad to see you, Again!</Text>
 
       {/* Email Field (normal text input) */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.emailInput}
+      <PlaneTextInput style={styles.emailInput}
           placeholder="Enter your email"
-          placeholderTextColor={Colors.medium}  
-        />
-      </View>
-
+          placeholderTextColor={Colors.medium} />
+          
       {/* Password Field (with eye icon) */}
-      <IconTextInput
-        placeholder="Enter your password"
-        secureTextEntry={true}
-        containerStyle={{ marginBottom: 5 }}
-        isSecureInput={true}
-      />
+      <ToggleIconTextInput style={styles.emailInput}
+          placeholder="Enter your password"
+          icon2="eye"
+          icon1="eye-off"
+          color1= {Colors.medium}
+          color2={Colors.medium}
+          onIconClicked={x => setIsSecurePassword(x)}
+          isSecureText={isSecurePassword}
+          placeholderTextColor={Colors.medium} />
 
       {/* Forgot Password link */}
-      <MyButton onPress={() => goToLogin()} 
+      <PlaneLabelButton onPress={() => goToLogin()} 
         style={styles.forgotContainer} 
         onClickedBackgroundColor="transparent" 
-        onClickedTextColor={Colors.highlightMedium}>
-        <Text style={styles.forgotText}>Forgot Password</Text>
-      </MyButton>
+        onClickedTextColor={Colors.highlightMedium}
+        labelStyle={styles.forgotText}
+        label = 'Forgot Password'/>
 
       {/* Login Button */}
-      <MyButton
+      <HighlightLabelButton
           style={styles.loginButton}
           onPress={onLoginPress}
-        >
-        <Text style={styles.loginButtonText}>Login</Text>
-      </MyButton>
+          label='Login'
+      />
 
       {/* Or Login with */}
       <View style={styles.orContainer}>
@@ -81,7 +81,7 @@ const LoginScreen = () => {
       </View>
 
       {/* Social buttons row */}
-      <MyButton
+      <BaseButton
         style={styles.googleLoginButton}
         onClickedBackgroundColor={Colors.mediumLight}
         onClickedTextColor={Colors.veryDark}
@@ -89,19 +89,19 @@ const LoginScreen = () => {
       >
         <Icon name="google" size={24} color="#DB4437" style={styles.googleIcon} />
         <Text style={styles.googleText}>Login with Google</Text>
-      </MyButton>
+      </BaseButton>
 
       {/* Bottom Register */}
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Don’t have an account? </Text>
-        <MyButton
+        <PlaneLabelButton
             style={styles.registerNowButton}
             onClickedBackgroundColor='transparent'
             onClickedTextColor={Colors.highlightMedium}
             onPress={() => goToSignUp()}
-        >
-          <Text style={styles.registerNow}>Register Now</Text>
-        </MyButton>
+            labelStyle={styles.registerNow}
+            label='Register Now'
+        />
       </View>
     </View>
   );
@@ -139,14 +139,18 @@ const styles = StyleSheet.create({
   },
   emailInput: {
     fontSize: 16,
-    padding: 12,
+    width:'100%',
     color: Colors.dark,
+    paddingVertical:0,
+    marginBottom: 15,
   },
   forgotContainer: {
     alignSelf: 'flex-end',
     backgroundColor: 'transparent',
     paddingVertical: 0,
     marginBottom: 20,
+    fontSize: 12,
+    paddingHorizontal:0,
   },
   forgotText: {
     fontSize: 12,
@@ -210,6 +214,7 @@ const styles = StyleSheet.create({
   registerNowButton: {
     backgroundColor: 'transparent',
     paddingVertical: 5,
+    paddingHorizontal:0,
   },
   registerNow: {
     fontSize: 14,

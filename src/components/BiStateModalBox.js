@@ -1,9 +1,9 @@
 // src/components/BiStateModalBox.js
 import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native';
-import MyButton from './MyButton';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/colors';
+import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import IconButton from '../components/Buttons/IconButton';
 
 const BiStateModalBox = ({
   visible,
@@ -25,24 +25,28 @@ const BiStateModalBox = ({
       <View style={styles.backdrop}>
         <View style={styles.modalContainer}>
           {/* Cross Button */}
-          <TouchableOpacity style={styles.closeButton} onPress={onLeftPress}>
-            <Icon name="close" size={24} color={Colors.dark} />
-          </TouchableOpacity>
+          <IconButton 
+            iconName='close'
+            onPress={onRequestClose}
+            size={24}
+            style={styles.closeButton}
+            color={Colors.dark}/>
+
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
 
           <View style={styles.buttonRow}>
-            <MyButton
+            <PlaneLabelButton
               style={styles.leftButton}
               onPress={onLeftPress}
+              defaultTextColor={Colors.light}
               onClickedBackgroundColor={Colors.mediumDark}
-            >
-              <Text style={styles.buttonText}>{leftButtonText}</Text>
-            </MyButton>
+              label={leftButtonText}/>
 
-            <MyButton style={styles.rightButton} onPress={onRightPress}>
-              <Text style={styles.buttonText}>{rightButtonText}</Text>
-            </MyButton>
+            <HighlightLabelButton style={styles.rightButton} 
+              onPress={onRightPress} 
+              label={rightButtonText}/>
+
           </View>
         </View>
       </View>

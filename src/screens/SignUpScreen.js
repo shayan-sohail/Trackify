@@ -1,5 +1,5 @@
 // src/screens/SignUpScreen.js
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -12,11 +12,13 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import IconTextInput from '../components/IconTextInput';
 import Colors from '../constants/colors';
-import MyButton from '../components/MyButton';
 
-const { width } = Dimensions.get('window');
+import BaseButton from '../components/Buttons/BaseButton';
+import PlaneTextInput from '../components/TextInput/PlaneTextInput';
+import ToggleIconTextInput from '../components/TextInput/ToggleIconTextInput';
+import { HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+
 
 // Validation schema using Yup
 const validationSchema = Yup.object().shape({
@@ -62,6 +64,9 @@ const SignUpScreen = () => {
     });
   };
 
+  const [isSecurePassword, setIsSecurePassword] = useState(true);
+  const [isSecureConfirmPassword, setIsSecureConfirmPassword] = useState(true);
+
   return (
     <View style={styles.container}>
       {/* Centered Logo */}
@@ -75,69 +80,66 @@ const SignUpScreen = () => {
       <Text style={styles.title}>Hello! Register to get started</Text>
 
       {/* Name Field */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
+      <PlaneTextInput style={styles.textInput}
           placeholder="Name"
           placeholderTextColor={Colors.medium}
           value={formik.values.name}
           onChangeText={formik.handleChange('name')}
-          onBlur={formik.handleBlur('name')}
-        />
-      </View>
+          onBlur={formik.handleBlur('name')} />
+
       {formik.submitCount > 0 && formik.errors.name && (
         <Text style={styles.errorText}>{formik.errors.name}</Text>
       )}
 
       {/* Email Field */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
+      <PlaneTextInput style={styles.textInput}
           placeholder="Email"
           placeholderTextColor={Colors.medium}
           value={formik.values.email}
           onChangeText={formik.handleChange('email')}
           onBlur={formik.handleBlur('email')}
           keyboardType="email-address"
-          autoCapitalize="none"
-        />
-      </View>
+          autoCapitalize="none" />
+
       {formik.submitCount > 0 && formik.errors.email && (
         <Text style={styles.errorText}>{formik.errors.email}</Text>
       )}
 
       {/* Password Field (with eye icon) */}
-      <IconTextInput
-        placeholder="Password"
-        secureTextEntry={true}
-        containerStyle={styles.inputContainer}
-        value={formik.values.password}
-        isSecureInput={true}
-        onChangeText={formik.handleChange('password')}
-        onBlur={formik.handleBlur('password')}
-      />
-      {formik.submitCount > 0 && formik.errors.password && (
-        <Text style={styles.errorText}>{formik.errors.password}</Text>
-      )}
+      <ToggleIconTextInput style={styles.textInput}
+          placeholder="Password"
+          icon2="eye"
+          icon1="eye-off"
+          color1= {Colors.medium}
+          color2={Colors.medium}
+          onIconClicked={x => setIsSecurePassword(x)}
+          isSecureText={isSecurePassword}
+          value={formik.values.password}
+          onChangeText={formik.handleChange('password')}
+          onBlur={formik.handleBlur('password')} />
 
-      {/* Confirm Password Field (with eye icon) */}
-      <IconTextInput
-        placeholder="Confirm password"
-        secureTextEntry={true}
-        containerStyle={styles.inputContainer}
-        value={formik.values.confirmPassword}
-        isSecureInput={true}
-        onChangeText={formik.handleChange('confirmPassword')}
-        onBlur={formik.handleBlur('confirmPassword')}
-      />
-      {formik.submitCount > 0 && formik.errors.confirmPassword && (
-        <Text style={styles.errorText}>{formik.errors.confirmPassword}</Text>
-      )}
+        {formik.submitCount > 0 && formik.errors.password && (
+          <Text style={styles.errorText}>{formik.errors.password}</Text>
+        )}
+
+        <ToggleIconTextInput style={styles.textInput}
+          placeholder="Confirm Password"
+          icon1="eye"
+          icon2="eye-off"
+          color1= {Colors.medium}
+          color2={Colors.medium}
+          onIconClicked={x => setIsSecureConfirmPassword(x)}
+          isSecureText={isSecureConfirmPassword}
+          value={formik.values.confirmPassword}
+          onChangeText={formik.handleChange('confirmPassword')}
+          onBlur={formik.handleBlur('confirmPassword')}/>
+
+        {formik.submitCount > 0 && formik.errors.confirmPassword && (
+          <Text style={styles.errorText}>{formik.errors.confirmPassword}</Text>
+        )}
 
       {/* Register Button */}
-      <MyButton style={styles.registerButton} onPress={formik.handleSubmit}>
-        <Text style={styles.loginButtonText}>Register</Text>
-      </MyButton>
+      <HighlightLabelButton style={styles.registerButton} onPress={formik.handleSubmit} label='Register'/>
 
       {/* Or Register with */}
       <View style={styles.orContainer}>
@@ -147,7 +149,7 @@ const SignUpScreen = () => {
       </View>
 
       {/* Social button */}
-      <MyButton
+      <BaseButton
         style={styles.googleLoginButton}
         onPress={() => console.log('Login with Google pressed')}
         onClickedBackgroundColor={Colors.mediumLight}
@@ -155,19 +157,19 @@ const SignUpScreen = () => {
       >
         <Icon name="google" size={24} color="#DB4437" style={styles.googleIcon} />
         <Text style={styles.googleText}>Login with Google</Text>
-      </MyButton>
+      </BaseButton>
 
       {/* Bottom row: Already have an account? */}
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Already have an account? </Text>
-        <MyButton
-          onPress={goToLogin}
-          style={styles.registerNowButton}
-          onClickedBackgroundColor="transparent"
-          onClickedTextColor={Colors.highlightMedium}
-        >
-          <Text style={styles.registerNow}>Login Now</Text>
-        </MyButton>
+        <PlaneLabelButton
+            style={styles.registerNowButton}
+            onClickedBackgroundColor='transparent'
+            onClickedTextColor={Colors.highlightMedium}
+            onPress={() => goToLogin()}
+            labelStyle={styles.registerNow}
+            label='Login Now'
+        />
       </View>
     </View>
   );
@@ -201,12 +203,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light,
     borderRadius: 8,
     marginVertical: 5,
-    padding: 10,
+    // padding: 10,
   },
   textInput: {
     fontSize: 16,
-    padding: 12,
+    width: '100%',
     color: Colors.dark,
+    marginVertical: 5,
   },
   registerButton: {
     width: '100%',
@@ -267,6 +270,7 @@ const styles = StyleSheet.create({
   registerNowButton: {
     backgroundColor: 'transparent',
     paddingVertical: 5,
+    paddingHorizontal:0
   },
   errorText: {
     color: 'red',

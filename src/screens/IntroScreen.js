@@ -11,7 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import Colors from '../constants/colors';
-import MyButton from '../components/MyButton';
+import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
 
 const { width } = Dimensions.get('window');
 
@@ -100,21 +100,20 @@ const IntroScreen = () => {
 
       {/* Fixed bottom area with buttons */}
       <View style={styles.buttonArea}>
-        <MyButton
+        <HighlightLabelButton
           style={styles.button}
           onPress={() => goToSignUp()}
-        >
-          <Text style={styles.buttonText}>Get Started</Text>
-        </MyButton>
+          label='Get Started'/>
 
         <View style={styles.bottomRow}>
           <Text style={styles.bottomText}>Got an account? </Text>
-          <MyButton onPress={() => goToLogin()} 
+          <PlaneLabelButton onPress={() => goToLogin()} 
             style={styles.registerNowButton} 
-            onClickedBackgroundColor="transparent" 
+            onClickedBackgroundColor="transparent"
+            label='Log in'
+            defaultTextColor={Colors.highlight}
             onClickedTextColor={Colors.highlightMedium}>
-            <Text style={styles.registerNow}>Log in</Text>
-          </MyButton>
+          </PlaneLabelButton>
         </View>
       </View>
 
@@ -140,12 +139,10 @@ const styles = StyleSheet.create({
   },
   registerNowButton: {
     backgroundColor: 'transparent',
-  },
-  registerNow: {
-    backgroundColor: 'transparent',
     fontSize: 14,
     color: Colors.highlight,
     fontWeight: '600',
+    paddingHorizontal:0,
   },
   swipeArea: {
     flex: 3,

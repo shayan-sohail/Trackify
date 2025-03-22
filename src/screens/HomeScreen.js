@@ -7,12 +7,11 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native'; 
 import BottomTabs from './BottomTabs';
-import ToggleIconButton from '../components/ToggleIconButton';
+import IconButton from '../components/Buttons/IconButton';
 import Colors from '../constants/colors';
 import Sidebar from '../components/Sidebar';
-import MyButton from '../components/MyButton';
 
 const TOP_BAR_HEIGHT = 50;
 const ICON_SIZE = 24;
@@ -20,6 +19,7 @@ const ICON_SIZE = 24;
 const HomeScreen = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
+  const navigation = useNavigation();
   const openDrawer = () => {
     setDrawerVisible(true);
   };
@@ -32,32 +32,28 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.safeArea}>
       {/* Fixed top row */}
       <View style={styles.topBar}>
-        <ToggleIconButton
-          icon1="menu"
+        <IconButton
+          iconName="menu"
           size={ICON_SIZE}
-          color1= {Colors.veryLight}
-          onPressed={(state) => openDrawer()}
+          color= {Colors.veryLight}
+          onPress={(state) => openDrawer()}
           value={drawerVisible}
         />
 
         <View style={styles.rightIcons}>
-          <ToggleIconButton
-          icon1="magnify"
-          size={ICON_SIZE}
-          color1= {Colors.veryLight}
-          color2={Colors.highlightMedium}
-          style={styles.iconButton}
-          value={drawerVisible}
-          onPressed={(state) => openDrawer()}
+          <IconButton
+            iconName="magnify"
+            size={ICON_SIZE}
+            color= {Colors.veryLight}
+            style={styles.iconButton}
+            onPress={(state) => navigation.replace('SignUpScreen')}
           />
-          <ToggleIconButton
-          icon1="account-circle"
-          size={ICON_SIZE}
-          color1= {Colors.veryLight}
-          color2={Colors.highlightMedium}
-          style={styles.iconButton}
-          value={drawerVisible}
-          onPressed={(state) => openDrawer()}
+          <IconButton
+            iconName="account-circle"
+            size={ICON_SIZE}
+            color= {Colors.veryLight}
+            style={styles.iconButton}
+            onPress={(state) => navigation.replace('LoginScreen')}
           />
         </View>
       </View>

@@ -10,8 +10,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../constants/colors';
-import MyButton from '../components/MyButton';
-import BiStateModalBox from '../components/BiStateModalBox';
+import BaseButton from '../components/Buttons/BaseButton';
+import {PlaneTextButton} from '../components/Buttons/LabelButton';
 
 const ICON_SIZE = 24;
 
@@ -87,8 +87,7 @@ const HomeTab = () => {
           <Text style={styles.totalBalanceLabel}>Total Balance</Text>
           <Text style={styles.totalBalanceValue}>$120,908</Text>
           <View style={styles.incomeExpenseRow}>
-            {/* <MyButton style={styles.incomeBox} onPress={() => navigation.replace("SignUpScreen")}> */}
-            <MyButton style={styles.incomeBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'income' })}>
+            <BaseButton style={styles.incomeBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'income' })}>
               <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
               <View style={styles.ieTextContainer}>
                 <Text style={styles.incomeText}>$34,678</Text>
@@ -97,9 +96,9 @@ const HomeTab = () => {
               <View style={styles.addButton}>
                 <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="green" />
               </View>
-            </MyButton>
-            {/* <MyButton style={styles.expenseBox} onPress={() => setShowModal(true)}> */}
-            <MyButton style={styles.expenseBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'expense' })}>
+            </BaseButton>
+
+            <BaseButton style={styles.expenseBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'expense' })}>
               <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
               <View style={styles.ieTextContainer}>
                 <Text style={styles.expenseText}>$19,678</Text>
@@ -108,29 +107,15 @@ const HomeTab = () => {
               <View style={styles.addButton}>
                 <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="#ef625c" />
               </View>
-            </MyButton>
+            </BaseButton>
           </View>
         </View>
-
-        {/* The modal box itself */}
-        <BiStateModalBox
-          visible={showModal}
-          title="Add Expense"
-          subtitle="Do you want to add a new expense?"
-          leftButtonText="Cancel"
-          rightButtonText="Confirm"
-          onLeftPress={onLeftPress}
-          onRightPress={onRightPress}
-          onRequestClose={() => setShowModal(false)}
-        />
 
         {/* Padded container for the “Recent Transactions” heading */}
         <View style={styles.headerPadding}>
           <View style={styles.titleRow}>
             <Text style={styles.recentTransactions}>Recent Transactions</Text>
-            <TouchableOpacity onPress={() => console.log('View All pressed')}>
-              <Text style={styles.viewAll}>View All</Text>
-            </TouchableOpacity>
+            <PlaneTextButton onPress={() => console.log('View All pressed')} label='View All' style={styles.viewAll}/>
           </View>
         </View>
       </>

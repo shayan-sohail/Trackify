@@ -22,7 +22,7 @@ const BudgetTab = () => {
     <ScrollView style={styles.container}>
       <Text style={styles.text}>Budget</Text>
 
-      {/* <View>
+      {<View>
         <HighlightLabelButton 
           label="Button"
           onPress={() => console.log('Save pressed')}
@@ -87,7 +87,7 @@ const BudgetTab = () => {
           outlineColor={Colors.highlight}
           onPress={() => {}}
         />
-      </View> */}
+      </View>}
     
     <PlaneTextInput
       placeholder="Enter text..."

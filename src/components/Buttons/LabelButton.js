@@ -127,6 +127,30 @@ export const PlaneLabelButton = ({
   />
 );
 
+export const PlaneTextButton = ({ 
+  label, 
+  style,
+  labelStyle, 
+  outline,
+  outlineWidth,
+  outlineColor,
+  ...props 
+}) => (
+  <BaseLabelButton
+    label={label}
+    style={[styles.planeTextButton, style]}
+    labelStyle={[styles.planeTextlabel, labelStyle]}
+    outline={outline}
+    outlineWidth={outlineWidth}
+    outlineColor={outlineColor}
+    defaultBackgroundColor="transparent"
+    onClickedBackgroundColor='transparent'
+    defaultTextColor={Colors.highlight}
+    onClickedTextColor={Colors.highlightMedium}
+    {...props}
+  />
+);
+
 export const DangerLabelButton = ({ 
   label, 
   style, 
@@ -158,6 +182,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  planeTextButton: {
+    padding: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  planeTextlabel: {
+    fontSize: 14,
+    fontWeight: '500',
   },
   label: {
     fontSize: 16,

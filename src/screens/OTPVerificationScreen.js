@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
-import MyButton from '../components/MyButton';
+import { HighlightLabelButton, PlaneTextButton} from '../components/Buttons/LabelButton';
 import Colors from '../constants/colors';
 
 const OTPVerificationScreen = () => {
@@ -68,14 +68,15 @@ const OTPVerificationScreen = () => {
         ))}
       </View>
 
-      <MyButton style={styles.loginButton} onPress={onVerifyPress}>
-        <Text style={styles.loginButtonText}>Verify</Text>
-      </MyButton>
+      <HighlightLabelButton style={styles.loginButton} onPress={onVerifyPress} 
+        label={'Verify'} labelStyle={styles.loginButtonText}/>
 
-      <Text style={styles.resendText}>
-        Didn’t receive an OTP?{' '}
-        <Text style={styles.resendLink}>Resend (35s)</Text>
-      </Text>
+      {/* Bottom row: Already have an account? */}
+      <View style={styles.bottomRow}>
+        <Text style={styles.resendText}>Didn't receive an OTP? </Text>
+        <PlaneTextButton onPress={() => goToLogin()} 
+                          label='Resend (35s)'/>
+      </View>
     </View>
   );
 };
@@ -136,8 +137,19 @@ const styles = StyleSheet.create({
     color: Colors.medium,
     textAlign: 'center',
   },
-  resendLink: {
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  registerNow: {
+    fontSize: 14,
     color: Colors.highlight,
     fontWeight: '600',
+  },
+  registerNowButton: {
+    backgroundColor: 'transparent',
+    paddingVertical: 0,
+    paddingHorizontal:0
   },
 });

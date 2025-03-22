@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Colors from '../constants/colors';
-import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import {HighlightLabelButton, PlaneTextButton} from '../components/Buttons/LabelButton';
 import BaseButton from '../components/Buttons/BaseButton';
 import PlaneTextInput from '../components/TextInput/PlaneTextInput';
 import ToggleIconTextInput from '../components/TextInput/ToggleIconTextInput';
@@ -59,12 +59,10 @@ const LoginScreen = () => {
           placeholderTextColor={Colors.medium} />
 
       {/* Forgot Password link */}
-      <PlaneLabelButton onPress={() => goToLogin()} 
-        style={styles.forgotContainer} 
-        onClickedBackgroundColor="transparent" 
-        onClickedTextColor={Colors.highlightMedium}
-        labelStyle={styles.forgotText}
-        label = 'Forgot Password'/>
+      <PlaneTextButton onPress={() => goToSignUp()} 
+                  style={styles.forgotContainer}
+                  labelStyle={styles.forgotText}
+                  label='Forgot Password'/>
 
       {/* Login Button */}
       <HighlightLabelButton
@@ -94,14 +92,8 @@ const LoginScreen = () => {
       {/* Bottom Register */}
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Don’t have an account? </Text>
-        <PlaneLabelButton
-            style={styles.registerNowButton}
-            onClickedBackgroundColor='transparent'
-            onClickedTextColor={Colors.highlightMedium}
-            onPress={() => goToSignUp()}
-            labelStyle={styles.registerNow}
-            label='Register Now'
-        />
+        <PlaneTextButton onPress={() => goToSignUp()} 
+                  label='Register Now'/>
       </View>
     </View>
   );
@@ -142,7 +134,7 @@ const styles = StyleSheet.create({
     width:'100%',
     color: Colors.dark,
     paddingVertical:0,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   forgotContainer: {
     alignSelf: 'flex-end',

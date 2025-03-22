@@ -11,7 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import Colors from '../constants/colors';
-import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import {HighlightLabelButton, PlaneTextButton} from '../components/Buttons/LabelButton';
 
 const { width } = Dimensions.get('window');
 
@@ -107,13 +107,8 @@ const IntroScreen = () => {
 
         <View style={styles.bottomRow}>
           <Text style={styles.bottomText}>Got an account? </Text>
-          <PlaneLabelButton onPress={() => goToLogin()} 
-            style={styles.registerNowButton} 
-            onClickedBackgroundColor="transparent"
-            label='Log in'
-            defaultTextColor={Colors.highlight}
-            onClickedTextColor={Colors.highlightMedium}>
-          </PlaneLabelButton>
+          <PlaneTextButton onPress={() => goToLogin()} 
+            label='Log in'/>
         </View>
       </View>
 
@@ -132,6 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
   },
   bottomText: {
     fontSize: 14,

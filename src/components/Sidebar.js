@@ -8,9 +8,10 @@ import {
   Easing,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/colors';
-import MyButton from './MyButton';
+import {PlaneIconLabelButton} from '../components/Buttons/IconLabelButton';
+import BaseButton from '../components/Buttons/BaseButton';
+
 
 const DRAWER_WIDTH = 280;
 const ICON_SIZE = 18;
@@ -46,7 +47,7 @@ const CustomDrawer = ({ visible, onClose, drawerOffset = 50 }) => {
   return (
     <View style={[styles.container, { top: drawerOffset }]}>
       {/* Backdrop covers entire container */}
-      <MyButton
+      <BaseButton
         style={styles.backdrop}
         onPress={onClose}
         // No pressed colors for the backdrop
@@ -66,92 +67,74 @@ const CustomDrawer = ({ visible, onClose, drawerOffset = 50 }) => {
 
         {/* Menu Items */}
         <View style={styles.menuList}>
-          <MyButton
-            style={styles.menuItem}
-            onPress={() => console.log('Recent pressed')}
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName='clock-outline' 
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
             onClickedBackgroundColor={BTN_CLICKED_CLR}
-          >
-            <Icon
-              name="clock-outline"
-              size={ICON_SIZE}
-              color={Colors.dark}
-              style={styles.menuIcon}
-            />
-            <Text style={styles.menuItemText}>Recent</Text>
-          </MyButton>
+            iconStyle={styles.menuIcon} 
+            label='Recent'
+            onPress={() => console.log('Recent pressed')} 
+            labelStyle={styles.menuItemText}
+          />
+          
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName='image-outline' 
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
+            onClickedBackgroundColor={BTN_CLICKED_CLR}
+            iconStyle={styles.menuIcon} 
+            label='Images'
+            onPress={() => console.log('Images pressed')} 
+            labelStyle={styles.menuItemText}
+          />
+          
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName='movie-outline' 
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
+            onClickedBackgroundColor={BTN_CLICKED_CLR}
+            iconStyle={styles.menuIcon} 
+            label='Videos'
+            onPress={() => console.log('Videos pressed')} 
+            labelStyle={styles.menuItemText}
+          />
 
-          <MyButton
-            style={styles.menuItem}
-            onPress={() => console.log('Images pressed')}
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName='music-note-outline' 
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
             onClickedBackgroundColor={BTN_CLICKED_CLR}
-          >
-            <Icon
-              name="image-outline"
-              size={ICON_SIZE}
-              color={Colors.dark}
-              style={styles.menuIcon}
-            />
-            <Text style={styles.menuItemText}>Images</Text>
-          </MyButton>
+            iconStyle={styles.menuIcon} 
+            label='Audios'
+            onPress={() => console.log('Audios pressed')} 
+            labelStyle={styles.menuItemText}
+          />
 
-          <MyButton
-            style={styles.menuItem}
-            onPress={() => console.log('Videos pressed')}
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName="file-outline"
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
             onClickedBackgroundColor={BTN_CLICKED_CLR}
-          >
-            <Icon
-              name="movie-outline"
-              size={ICON_SIZE}
-              color={Colors.dark}
-              style={styles.menuIcon}
-            />
-            <Text style={styles.menuItemText}>Videos</Text>
-          </MyButton>
-
-          <MyButton
-            style={styles.menuItem}
-            onPress={() => console.log('Audio pressed')}
-            onClickedBackgroundColor={BTN_CLICKED_CLR}
-          >
-            <Icon
-              name="music-note-outline"
-              size={ICON_SIZE}
-              color={Colors.dark}
-              style={styles.menuIcon}
-            />
-            <Text style={styles.menuItemText}>Audio</Text>
-          </MyButton>
-
-          <MyButton
-            style={styles.menuItem}
-            onPress={() => console.log('Documents pressed')}
-            onClickedBackgroundColor={BTN_CLICKED_CLR}
-          >
-            <Icon
-              name="file-outline"
-              size={ICON_SIZE}
-              color={Colors.dark}
-              style={styles.menuIcon}
-            />
-            <Text style={styles.menuItemText}>Documents</Text>
-          </MyButton>
+            iconStyle={styles.menuIcon} 
+            label='Documents'
+            onPress={() => console.log('Documents pressed')} 
+            labelStyle={styles.menuItemText}
+          />
 
           {/* Separator */}
           <View style={styles.separator} />
-
-          <MyButton
-            style={styles.menuItem}
-            onPress={() => console.log('Downloads pressed')}
-            onClickedBackgroundColor="#E8F2FF"
-          >
-            <Icon
-              name="download"
-              size={ICON_SIZE}
-              color={Colors.highlight}
-              style={styles.menuIcon}
-            />
-            <Text style={[styles.menuItemText, { color: Colors.highlight }]}>Downloads</Text>
-          </MyButton>
+          
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName="download"
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.highlight}
+            onClickedBackgroundColor={BTN_CLICKED_CLR}
+            iconStyle={styles.menuIcon} 
+            label='Downloads'
+            onPress={() => console.log('Downloads pressed')} 
+            labelStyle={[styles.menuItemText, { color: Colors.highlight }]}
+          />    
         </View>
       </Animated.View>
     </View>
@@ -220,6 +203,7 @@ const styles = StyleSheet.create({
   menuItemText: {
     fontSize: 14,
     color: Colors.dark,
+    fontWeight: '500',
   },
   separator: {
     height: 1,

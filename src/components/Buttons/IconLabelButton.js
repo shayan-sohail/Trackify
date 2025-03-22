@@ -18,6 +18,7 @@ const BaseIconLabelButton = ({
     iconName,
     iconSize = 24,
     iconColor,
+    iconStyle,
   }) => {
     const [isPressed, setIsPressed] = useState(false);
   
@@ -56,7 +57,7 @@ const BaseIconLabelButton = ({
             name={iconName} 
             size={iconSize} 
             color={currentIconColor} 
-            style={styles.icon}
+            style={[iconStyle, styles.icon]}
           />
           <Text style={[
             styles.label,
@@ -139,6 +140,7 @@ export const PlaneIconLabelButton = ({
   iconName,
   iconSize,
   iconColor = Colors.dark,
+  iconStyle,
   ...props 
 }) => (
   <BaseIconLabelButton
@@ -155,6 +157,7 @@ export const PlaneIconLabelButton = ({
     iconName={iconName}
     iconSize={iconSize}
     iconColor={iconColor}
+    iconStyle={iconStyle}
     {...props}
   />
 );

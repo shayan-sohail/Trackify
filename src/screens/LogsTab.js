@@ -6,6 +6,7 @@ import IconMultiPickerButtonWithModal from '../components/Buttons/IconMultiPicke
 import IconPickerButtonWithModal from '../components/Buttons/IconPickerButtonWithModal';
 import IconPickerButtonCycling from '../components/Buttons/IconPickerButtonCycling';
 import Colors from '../constants/colors';
+import BaseButton from '../components/Buttons/BaseButton';
 
 // Using the same transaction data from HomeTab
 const TRANSACTIONS = [
@@ -54,8 +55,9 @@ const LogsTab = () => {
   ];
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
+    <BaseButton
       style={styles.transactionItem}
+      onClickedBackgroundColor={Colors.light}
       onPress={() => navigation.navigate("TransactionDetailsScreen", { transaction: item })}
     >
       <View style={[styles.iconBox, { backgroundColor: item.color }]}>
@@ -73,7 +75,7 @@ const LogsTab = () => {
         </Text>
         <Text style={styles.category}>{item.category}</Text>
       </View>
-    </TouchableOpacity>
+    </BaseButton>
   );
 
   return (
@@ -159,6 +161,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 0.5,
     borderBottomColor: '#eee',
+    backgroundColor: Colors.veryLight,
   },
   iconBox: {
     width: 40,

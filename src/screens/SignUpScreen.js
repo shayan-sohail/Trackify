@@ -5,8 +5,6 @@ import {
   Text,
   StyleSheet,
   Image,
-  Dimensions,
-  TextInput,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -17,7 +15,7 @@ import Colors from '../constants/colors';
 import BaseButton from '../components/Buttons/BaseButton';
 import PlaneTextInput from '../components/TextInput/PlaneTextInput';
 import ToggleIconTextInput from '../components/TextInput/ToggleIconTextInput';
-import { HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import { HighlightLabelButton, PlaneTextButton} from '../components/Buttons/LabelButton';
 
 
 // Validation schema using Yup
@@ -53,7 +51,7 @@ const SignUpScreen = () => {
       // If all checks pass, print the object with name, email, and password
       const { name, email, password } = values;
       console.log({ name, email, password });
-      navigation.replace('LoadingScreen');
+      navigation.replace('OTPVerificationScreen')
     },
   });
 
@@ -113,6 +111,7 @@ const SignUpScreen = () => {
           color1= {Colors.medium}
           color2={Colors.medium}
           onIconClicked={x => setIsSecurePassword(x)}
+          initialToggleState={isSecurePassword}
           isSecureText={isSecurePassword}
           value={formik.values.password}
           onChangeText={formik.handleChange('password')}
@@ -124,10 +123,11 @@ const SignUpScreen = () => {
 
         <ToggleIconTextInput style={styles.textInput}
           placeholder="Confirm Password"
-          icon1="eye"
-          icon2="eye-off"
+          icon1="eye-off"
+          icon2="eye"
           color1= {Colors.medium}
           color2={Colors.medium}
+          initialToggleState={isSecureConfirmPassword}
           onIconClicked={x => setIsSecureConfirmPassword(x)}
           isSecureText={isSecureConfirmPassword}
           value={formik.values.confirmPassword}
@@ -162,14 +162,8 @@ const SignUpScreen = () => {
       {/* Bottom row: Already have an account? */}
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>Already have an account? </Text>
-        <PlaneLabelButton
-            style={styles.registerNowButton}
-            onClickedBackgroundColor='transparent'
-            onClickedTextColor={Colors.highlightMedium}
-            onPress={() => goToLogin()}
-            labelStyle={styles.registerNow}
-            label='Login Now'
-        />
+        <PlaneTextButton onPress={() => goToLogin()} 
+                  label='Login Now'/>
       </View>
     </View>
   );

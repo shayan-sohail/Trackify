@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Dimensions, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ComboBox from '../components/ComboBox';
 import MyDatePicker from '../components/MyDatePicker';
-import MyButton from '../components/MyButton';
 import Colors from '../constants/colors';
 import BiStateModalBox from '../components/BiStateModalBox';
+import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import IconButton from '../components/Buttons/IconButton';
 
 
 const TransactionDetailsScreen = () => {
@@ -129,9 +129,12 @@ const TransactionDetailsScreen = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.screenTitle}>{getScreenTitle()}</Text>
         {transaction && (
-          <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
-            <Icon name="delete" size={24} color={Colors.dark} />
-          </TouchableOpacity>
+          <IconButton
+            iconName='delete' 
+            onPress={handleDelete}
+            color={Colors.dark}
+            style={styles.deleteButton}  
+          />
         )}
       </View>
 
@@ -181,14 +184,14 @@ const TransactionDetailsScreen = () => {
         {/* ... Name field remains the same ... */}
 
         {!showMoreFields && (
-          <MyButton
+          <HighlightLabelButton
             style={styles.moreFieldsButton}
             onPress={handleShowMoreFields}
             onClickedBackgroundColor="transparent"
             onClickedTextColor={Colors.highlightMedium}
-          >
-            <Text style={styles.moreFieldsText}>More fields</Text>
-          </MyButton>
+            label='More fields'
+            labelStyle={styles.moreFieldsText}
+          />
         )}
         
         {showMoreFields && (
@@ -207,12 +210,12 @@ const TransactionDetailsScreen = () => {
             </View>
 
             <Text style={styles.label}>Attachment (Max 5)</Text>
-            <MyButton 
+            <PlaneLabelButton 
               style={styles.attachmentButton}
               onPress={handleAttachment}
-            >
-              <Text style={styles.attachmentButtonText}>Add Attachment</Text>
-            </MyButton>
+              label='Add Attachment'
+              labelStyle={styles.attachmentButtonText}
+            />
             <Text>Max attachment 2MB</Text>
           </>
         )}
@@ -220,18 +223,18 @@ const TransactionDetailsScreen = () => {
       </ScrollView>
 
       <View style={styles.buttonContainer}>
-        <MyButton 
+        <PlaneLabelButton 
           style={styles.cancelButton}
           onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.buttonText}>Cancel</Text>
-        </MyButton>
-        <MyButton 
+          label='Cancel'
+          labelStyle={styles.buttonText}
+        />
+        <HighlightLabelButton 
           style={styles.addButton}
           onPress={handleAdd}
-        >
-          <Text style={styles.buttonText}>{transaction ? 'Update' : 'Add'}</Text>
-        </MyButton>
+          label={transaction ? 'Update' : 'Add'}
+          labelStyle={styles.buttonText}
+        />
       </View>
 
       <MyDatePicker

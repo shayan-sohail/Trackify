@@ -8,11 +8,13 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import Colors from '../constants/colors';
-import BaseButton from '../components/Buttons/BaseButton';
-import {PlaneTextButton} from '../components/Buttons/LabelButton';
+import Sidebar from '../../components/Sidebar';
+import Colors from '../../constants/colors';
+import IconButton from '../../components/Buttons/IconButton';
+import BaseButton from '../../components/Buttons/BaseButton';
+import {PlaneTextButton} from '../../components/Buttons/LabelButton';
 
-const ICON_SIZE = 24;
+const ICON_SIZE = 25;
 
 const TRANSACTIONS = [
   { id: '1', title: 'Electricity Bill', date: new Date('2024-03-13T17:30:00'), amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
@@ -38,6 +40,7 @@ const TRANSACTIONS = [
 const HomeTab = () => {
   const dataToShow = TRANSACTIONS;
   const navigation = useNavigation();
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   const renderItem = ({ item }) => (
     <BaseButton
@@ -64,52 +67,93 @@ const HomeTab = () => {
   );
 
   return (
-  <FlatList
-    data={dataToShow}
-    keyExtractor={(item) => item.id}
-    renderItem={renderItem}
-    ListHeaderComponent={() => (
-      <>
-        {/* Full-width top section (no horizontal padding) */}
-        <View style={styles.topSection}>
-          <Text style={styles.totalBalanceLabel}>Total Balance</Text>
-          <Text style={styles.totalBalanceValue}>$120,908</Text>
-          <View style={styles.incomeExpenseRow}>
-            <BaseButton style={styles.incomeBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'income' })}>
-              <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
-              <View style={styles.ieTextContainer}>
-                <Text style={styles.incomeText}>$34,678</Text>
-                <Text style={styles.label}>Income</Text>
-              </View>
-              <View style={styles.addButton}>
-                <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="green" />
-              </View>
-            </BaseButton>
+    <>
+      {/* Always render Sidebar */}
+      <Sidebar
+        visible={drawerVisible}
+        onClose={()=>setDrawerVisible(false)}
+        drawerOffset={0}
+      />
+      <View style={styles.topBar}>
+        <IconButton
+          iconName="menu"
+          size={ICON_SIZE}
+          color= {Colors.veryLight}
+          style={styles.iconButton}
+          onPress={(state) => setDrawerVisible(true)}
+          value={drawerVisible}
+        />
 
-            <BaseButton style={styles.expenseBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'expense' })}>
-              <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
-              <View style={styles.ieTextContainer}>
-                <Text style={styles.expenseText}>$19,678</Text>
-                <Text style={styles.label}>Expense</Text>
-              </View>
-              <View style={styles.addButton}>
-                <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color="#ef625c" />
-              </View>
-            </BaseButton>
-          </View>
+        <View style={styles.rightIcons}>
+          <IconButton
+            iconName="magnify"
+            size={ICON_SIZE}
+            color= {Colors.veryLight}
+            style={styles.iconButton}
+            onPress={(state) => navigation.replace('SignUpScreen')}
+          />
+          <IconButton
+            iconName="account-circle"
+            size={ICON_SIZE}
+            color= {Colors.veryLight}
+            style={styles.iconButton}
+            onPress={(state) => navigation.replace('LoginScreen')}
+          />
         </View>
+      </View>
 
-        {/* Padded container for the “Recent Transactions” heading */}
-        <View style={styles.headerPadding}>
-          <View style={styles.titleRow}>
-            <Text style={styles.recentTransactions}>Recent Transactions</Text>
-            <PlaneTextButton onPress={() => console.log('View All pressed')} label='View All' style={styles.viewAll}/>
-          </View>
-        </View>
-      </>
-    )}
-    contentContainerStyle={styles.listContainer}
-  />
+      <FlatList
+        data={dataToShow}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        ListHeaderComponent={() => (
+          <>
+            {/* Full-width top section (no horizontal padding) */}
+            <View style={styles.topSection}>
+              <Text style={styles.totalBalanceLabel}>Total Balance</Text>
+              <Text style={styles.totalBalanceValue}>$120,908</Text>
+              <View style={styles.incomeExpenseRow}>
+                <BaseButton style={styles.incomeBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'income' })}>
+                  <Icon style={styles.circleIcon} name="arrow-top-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
+                  <View style={styles.ieTextContainer}>
+                    <Text style={styles.incomeText}>$34,678</Text>
+                    <Text style={styles.label}>Income</Text>
+                  </View>
+                  <View style={styles.addButton}>
+                    <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color={Colors.veryLight} />
+                  </View>
+                </BaseButton>
+
+                <BaseButton style={styles.expenseBox} onPress={() => navigation.navigate("TransactionDetailsScreen", { transactionType: 'expense' })}>
+                  <Icon style={styles.circleIcon} name="arrow-bottom-right-thin" size={ICON_SIZE} color={Colors.veryLight} />
+                  <View style={styles.ieTextContainer}>
+                    <Text style={styles.expenseText}>$19,678</Text>
+                    <Text style={styles.label}>Expense</Text>
+                  </View>
+                  <View style={styles.addButton}>
+                    <Icon style={styles.addButtonIcon} name="plus" size={ICON_SIZE} color={Colors.veryLight} />
+                  </View>
+                </BaseButton>
+              </View>
+            </View>
+
+            {/* Padded container for the “Recent Transactions” heading */}
+            <View style={styles.headerPadding}>
+              <View style={styles.titleRow}>
+                <Text style={styles.recentTransactions}>Recent Transactions</Text>
+                <PlaneTextButton onPress={() => console.log('View All pressed')} label='View All' style={styles.viewAll}/>
+              </View>
+            </View>
+            
+          </>
+        )}
+        contentContainerStyle={styles.listContainer}
+      />
+
+
+
+    </>
+  
 );
 };
 
@@ -177,6 +221,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  iconButton: {
+    backgroundColor: 'transparent',
+    padding: 5,
+  },
   ieTextContainer: {
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
@@ -225,6 +273,9 @@ const styles = StyleSheet.create({
   rightContainer: {
     alignItems: 'flex-end',
   },
+  rightIcons: {
+    flexDirection: 'row',
+  },
   title: {
     fontSize: 16,
     color: Colors.dark,
@@ -235,6 +286,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+  },
+  topBar: {
+    height: 50,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    width: '100%',
+    zIndex: 1,
   },
   topSection: {
     backgroundColor: Colors.highlight,
@@ -247,6 +311,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginBottom: 5,
     textAlign: 'center',
+    marginTop: 50,
   },
   totalBalanceValue: {
     fontSize: 28,

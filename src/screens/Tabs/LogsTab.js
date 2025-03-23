@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import BaseButton from '../components/Buttons/BaseButton';
+import Sidebar from '../../components/Sidebar';
+import IconButton from '../../components/Buttons/IconButton';
+import BaseButton from '../../components/Buttons/BaseButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconMultiPickerButtonWithModal from '../components/Buttons/IconMultiPickerButtonWithModal';
-import IconPickerButtonWithModal from '../components/Buttons/IconPickerButtonWithModal';
-import IconPickerButtonCycling from '../components/Buttons/IconPickerButtonCycling';
-import Colors from '../constants/colors';
+import IconMultiPickerButtonWithModal from '../../components/Buttons/IconMultiPickerButtonWithModal';
+import IconPickerButtonWithModal from '../../components/Buttons/IconPickerButtonWithModal';
+import IconPickerButtonCycling from '../../components/Buttons/IconPickerButtonCycling';
+import Colors from '../../constants/colors';
 
 const TRANSACTIONS = [
   { id: '1', title: 'Electricity Bill', date: new Date('2024-03-13T17:30:00'), amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
@@ -29,12 +31,13 @@ const TRANSACTIONS = [
   { id: '17', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
   { id: '18', title: 'Parking Fees', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Transport', color: '#D4F8D4', icon: 'magnify' },
 ];
-
+const ICON_SIZE = 25;
 const LogsTab = () => {
   const navigation = useNavigation();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedDates, setSelectedDates] = useState(0);
   const [selectedIconIndex, setSelectedIconIndex] = useState(0);
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   const categoryOptions = [
     { icon: 'food', icon2: 'arrow-top-right', label: 'Food' },
@@ -79,6 +82,41 @@ const LogsTab = () => {
   );
 
   return (
+    <>
+    {/* Always render Sidebar */}
+    <Sidebar
+        visible={drawerVisible}
+        onClose={()=>setDrawerVisible(false)}
+        drawerOffset={0}
+      />
+      <View style={styles.topBar}>
+        <IconButton
+          iconName="menu"
+          size={ICON_SIZE}
+          color= {Colors.dark}
+          onPress={(state) => setDrawerVisible(true)}
+          style={styles.iconButton}
+          value={drawerVisible}
+        />
+
+        <View style={styles.rightIcons}>
+          <IconButton
+            iconName="magnify"
+            size={ICON_SIZE}
+            color= {Colors.dark}
+            style={styles.iconButton}
+            onPress={(state) => navigation.replace('SignUpScreen')}
+          />
+          <IconButton
+            iconName="account-circle"
+            size={ICON_SIZE}
+            color= {Colors.dark}
+            style={styles.iconButton}
+            onPress={(state) => navigation.replace('LoginScreen')}
+          />
+        </View>
+      </View>
+      
     <View style={styles.container}>
       <View style={styles.titleRow}>
         <Text style={styles.headerTitle}>Transactions</Text>
@@ -122,6 +160,7 @@ const LogsTab = () => {
         contentContainerStyle={styles.listContainer}
       />
     </View>
+    </>
   );
 };
 
@@ -157,6 +196,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: Colors.dark,
+    paddingHorizontal: 5,
   },
   iconBox: {
     width: 40,
@@ -165,6 +205,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  iconButton: {
+    backgroundColor: 'transparent',
+    padding: 5,
   },
   income: {
     color: 'green',
@@ -179,6 +223,22 @@ const styles = StyleSheet.create({
   rightContainer: {
     alignItems: 'flex-end',
   },
+  rightIcons: {
+    flexDirection: 'row',
+  },
+  topBar: {
+    height: 50,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    width: '100%',
+    zIndex: 1,
+  },
   title: {
     fontSize: 16,
     color: Colors.dark,
@@ -188,9 +248,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: 10,
     paddingBottom: 10,
+    marginTop: 50,
     backgroundColor: Colors.veryLight,
   },
   transactionItem: {

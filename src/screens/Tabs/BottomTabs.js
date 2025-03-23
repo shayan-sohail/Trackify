@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSheet } from 'react-native';
 
-import Colors from '../constants/colors';
+import Colors from '../../constants/colors';
 import HomeTab from './HomeTab';
 import BudgetTab from './BudgetTab';
 import LogsTab from './LogsTab';

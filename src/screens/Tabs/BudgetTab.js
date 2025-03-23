@@ -2,13 +2,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-import { HighlightLabelButton, PlaneLabelButton, DangerLabelButton, OutlineLabelButton } from '../components/Buttons/LabelButton';
-import { HighlightIconLabelButton, PlaneIconLabelButton, DangerIconLabelButton, OutlineIconLabelButton } from '../components/Buttons/IconLabelButton';
-import PlaneTextInput from '../components/TextInput/PlaneTextInput';
-import StaticIconTextInput from '../components/TextInput/StaticIconTextInput';
-import ClickableIconTextInput from '../components/TextInput/ClickableIconTextInput';
-import ToggleIconTextInput from '../components/TextInput/ToggleIconTextInput';
-import Colors from '../constants/colors';
+import { HighlightLabelButton, PlaneLabelButton, DangerLabelButton, OutlineLabelButton } from '../../components/Buttons/LabelButton';
+import { HighlightIconLabelButton, PlaneIconLabelButton, DangerIconLabelButton, OutlineIconLabelButton } from '../../components/Buttons/IconLabelButton';
+import PlaneTextInput from '../../components/TextInput/PlaneTextInput';
+import StaticIconTextInput from '../../components/TextInput/StaticIconTextInput';
+import ClickableIconTextInput from '../../components/TextInput/ClickableIconTextInput';
+import ToggleIconTextInput from '../../components/TextInput/ToggleIconTextInput';
+import Colors from '../../constants/colors';
 
 const BudgetTab = () => {
 

@@ -141,7 +141,7 @@ const HomeTab = () => {
             <View style={styles.headerPadding}>
               <View style={styles.titleRow}>
                 <Text style={styles.recentTransactions}>Recent Transactions</Text>
-                <PlaneTextButton onPress={() => console.log('View All pressed')} label='View All' style={styles.viewAll}/>
+                <PlaneTextButton onPress={() => navigation.navigate('Logs')} label='View All' style={styles.viewAll}/>
               </View>
             </View>
             

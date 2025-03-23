@@ -108,24 +108,24 @@ const IconPickerButtonWithModal = ({
 };
 
 const styles = StyleSheet.create({
-    button: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 12,
-        paddingVertical:0,
-        backgroundColor: Colors.light,
-        borderRadius: 8,
-    },
-    buttonContent: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-    },
-    buttonText: {
-        fontSize: 16,
-        color: Colors.dark,
-    },
+  button: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: 12,
+      paddingVertical:0,
+      backgroundColor: Colors.light,
+      borderRadius: 8,
+  },
+  buttonContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+  },
+  buttonText: {
+      fontSize: 16,
+      color: Colors.dark,
+  },
   chevron: {
     marginLeft: 4,
   },

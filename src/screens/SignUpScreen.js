@@ -1,4 +1,3 @@
-// src/screens/SignUpScreen.js
 import React, {useState} from 'react';
 import {
   View,
@@ -10,12 +9,12 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Colors from '../constants/colors';
 
 import BaseButton from '../components/Buttons/BaseButton';
 import PlaneTextInput from '../components/TextInput/PlaneTextInput';
 import ToggleIconTextInput from '../components/TextInput/ToggleIconTextInput';
 import { HighlightLabelButton, PlaneTextButton} from '../components/Buttons/LabelButton';
+import Colors from '../constants/colors';
 
 
 // Validation schema using Yup
@@ -172,6 +171,15 @@ const SignUpScreen = () => {
 export default SignUpScreen;
 
 const styles = StyleSheet.create({
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomText: {
+    fontSize: 14,
+    color: Colors.medium,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
@@ -179,40 +187,32 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     alignItems: 'center',
   },
+  errorText: {
+    color: 'red',
+    alignSelf: 'flex-start',
+    paddingHorizontal: 2,
+  },
+  googleIcon: {
+    marginRight: 10,
+  },
+  googleLoginButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 55,
+    borderRadius: 8,
+    backgroundColor: Colors.light,
+    marginVertical: 10,
+  },
+  googleText: {
+    fontSize: 16,
+    color: Colors.dark,
+  },
   logo: {
     width: 150,
     height: 150,
     marginBottom: 20,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '600',
-    textAlign: 'center',
-    lineHeight: 26,
-    marginBottom: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    height: 60,
-    backgroundColor: Colors.light,
-    borderRadius: 8,
-    marginVertical: 5,
-    // padding: 10,
-  },
-  textInput: {
-    fontSize: 16,
-    width: '100%',
-    color: Colors.dark,
-    marginVertical: 5,
-  },
-  registerButton: {
-    width: '100%',
-    marginVertical: 15,
-  },
-  loginButtonText: {
-    color: Colors.light,
-    fontSize: 16,
-    fontWeight: '500',
   },
   orContainer: {
     flexDirection: 'row',
@@ -230,45 +230,21 @@ const styles = StyleSheet.create({
     color: Colors.medium,
     fontSize: 14,
   },
-  googleLoginButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  registerButton: {
     width: '100%',
-    height: 55,
-    borderRadius: 8,
-    backgroundColor: Colors.light,
-    marginVertical: 10,
+    marginVertical: 15,
   },
-  googleIcon: {
-    marginRight: 10,
-  },
-  googleText: {
+  textInput: {
     fontSize: 16,
+    width: '100%',
     color: Colors.dark,
+    marginVertical: 5,
   },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottomText: {
-    fontSize: 14,
-    color: Colors.medium,
-  },
-  registerNow: {
-    fontSize: 14,
-    color: Colors.highlight,
+  title: {
+    fontSize: 22,
     fontWeight: '600',
-  },
-  registerNowButton: {
-    backgroundColor: 'transparent',
-    paddingVertical: 5,
-    paddingHorizontal:0
-  },
-  errorText: {
-    color: 'red',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 2,
+    textAlign: 'center',
+    lineHeight: 26,
+    marginBottom: 20,
   },
 });

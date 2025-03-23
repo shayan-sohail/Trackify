@@ -144,13 +144,6 @@ const CustomDrawer = ({ visible, onClose, drawerOffset = 50 }) => {
 export default CustomDrawer;
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 999,
-  },
   backdrop: {
     position: 'absolute',
     left: 0,
@@ -159,6 +152,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'rgba(0,0,0,0.3)',
     zIndex: 998,
+  },
+  container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 999,
   },
   drawerContainer: {
     width: DRAWER_WIDTH,
@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
     width: 120,
     height: 50,
   },
-  menuList: {
-    marginTop: 10,
+  menuIcon: {
+    marginRight: 12,
   },
   menuItem: {
     flexDirection: 'row',
@@ -197,13 +197,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: 'transparent',
   },
-  menuIcon: {
-    marginRight: 12,
-  },
   menuItemText: {
     fontSize: 14,
     color: Colors.dark,
     fontWeight: '500',
+  },
+  menuList: {
+    marginTop: 10,
   },
   separator: {
     height: 1,

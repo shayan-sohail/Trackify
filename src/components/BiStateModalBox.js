@@ -63,13 +63,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContainer: {
-    width: '90%',
-    backgroundColor: Colors.veryLight,
-    borderRadius: 10,
-    padding: 20,
-    elevation: 2,
-    position: 'relative',
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   closeButton: {
     position: 'absolute',
@@ -78,13 +74,21 @@ const styles = StyleSheet.create({
     zIndex: 1,
     padding: 5,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.dark,
-    marginBottom: 10,
-    textAlign: 'center',
-    marginTop: 15, // leave room for close button
+  leftButton: {
+    backgroundColor: Colors.medium,
+    width: '35%',
+  },
+  modalContainer: {
+    width: '90%',
+    backgroundColor: Colors.veryLight,
+    borderRadius: 10,
+    padding: 20,
+    elevation: 2,
+    position: 'relative',
+  },
+  rightButton: {
+    backgroundColor: Colors.highlight,
+    width: '35%',
   },
   subtitle: {
     fontSize: 14,
@@ -92,20 +96,12 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     textAlign: 'center',
   },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  leftButton: {
-    backgroundColor: Colors.medium,
-    width: '35%',
-  },
-  rightButton: {
-    backgroundColor: Colors.highlight,
-    width: '35%',
-  },
-  buttonText: {
-    color: Colors.veryLight,
-    fontSize: 16,
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.dark,
+    marginBottom: 10,
+    textAlign: 'center',
+    marginTop: 15, // leave room for close button
   },
 });

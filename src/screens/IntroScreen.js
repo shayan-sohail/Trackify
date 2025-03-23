@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import Colors from '../constants/colors';
 import {HighlightLabelButton, PlaneTextButton} from '../components/Buttons/LabelButton';
-
 const { width } = Dimensions.get('window');
 
 // Slides data for the swipable content
@@ -119,9 +118,8 @@ const IntroScreen = () => {
 export default IntroScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.veryLight,
+  activeDot: {
+    backgroundColor: Colors.highlight
   },
   bottomRow: {
     flexDirection: 'row',
@@ -133,28 +131,53 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.medium,
   },
-  registerNowButton: {
-    backgroundColor: 'transparent',
-    fontSize: 14,
-    color: Colors.highlight,
-    fontWeight: '600',
-    paddingHorizontal:0,
+  button: {
+    width: '80%', // increased width for Get Started button
   },
-  swipeArea: {
-    flex: 3,
+  buttonArea: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
   },
-  slide: {
-    width: width,
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    flex: 1,
+    backgroundColor: Colors.veryLight,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  dotContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
   },
   image: {
     width: 350, // increased size
     height: 350,
     marginBottom: 20,
     resizeMode: 'contain',
+  },
+  inactiveDot: {
+    backgroundColor: Colors.mediumLight
+  },
+  slide: {
+    width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  subtitle: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginHorizontal: 30,
+    color: Colors.medium,
+  },
+  swipeArea: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textContainer: {
     marginTop: 30, // push hero content slightly lower
@@ -165,40 +188,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginVertical: 8,
     color: Colors.dark,
-  },
-  subtitle: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginHorizontal: 30,
-    color: Colors.medium,
-  },
-  dotContainer: {
-    flexDirection: 'row',
-    marginTop: 5,
-  },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 5,
-  },
-  activeDot: {
-    backgroundColor: Colors.highlight
-  },
-  inactiveDot: {
-    backgroundColor: Colors.mediumLight
-  },
-  buttonArea: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  button: {
-    width: '80%', // increased width for Get Started button
-  },
-  buttonText: {
-    color: Colors.light,
-    fontSize: 16,
   },
 });

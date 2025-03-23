@@ -1,4 +1,3 @@
-// src/navigation/HomeScreen.js
 import React, { useState } from 'react';
 import {
   View,
@@ -8,6 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
+
 import BottomTabs from './BottomTabs';
 import IconButton from '../components/Buttons/IconButton';
 import Colors from '../constants/colors';

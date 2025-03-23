@@ -265,37 +265,52 @@ const TransactionDetailsScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  addButton: {
+    flex: 1,
+    height: 60,
+  },
+  attachmentButton: {
+    backgroundColor: Colors.light,
+    height: 60,
+    marginVertical: 5,
+    justifyContent: 'center',
+  },
+  attachmentButtonText: {
+    color: Colors.dark,
+    fontSize: 16,
+    textAlign: 'left',
+    paddingHorizontal: 12,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: Colors.veryLight,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: Colors.medium,
+    height: 60,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
     padding: 20
   },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: 50,
-    backgroundColor: Colors.veryLight,
-  },
-  scrollContainer: {
-    flex: 1,
-  },
-  form: {
-    gap: 8,
-  },
-  screenTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  dateText: {
+    fontSize: 16,
     color: Colors.dark,
-    flex: 1,
+    paddingHorizontal: 12,
+    textAlign: 'left',
   },
   deleteButton: {
   },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.dark,
-    marginTop: 8,
+  form: {
+    gap: 8,
   },
   inputContainer: {
     width: '100%',
@@ -304,40 +319,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
   },
-  textInput: {
-    fontSize: 16,
-    padding: 12,
-    color: Colors.dark,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    gap: 12,
-    marginTop: 20,
-  },
-  cancelButton: {
-    flex: 1,
-    backgroundColor: Colors.medium,
-    height: 60,
-  },
-  addButton: {
-    flex: 1,
-    height: 60,
-  },
-  buttonText: {
-    color: Colors.veryLight,
+  label: {
     fontSize: 16,
     fontWeight: '600',
-  },
-  dateButtonText: {
     color: Colors.dark,
-    fontSize: 16,
-    padding: 12,
-  },
-  dateText: {
-    fontSize: 16,
-    color: Colors.dark,
-    paddingHorizontal: 12,
-    textAlign: 'left',
+    marginTop: 8,
   },
   moreFieldsButton: {
     backgroundColor: 'transparent',
@@ -351,22 +337,31 @@ const styles = StyleSheet.create({
   },
   notesContainer: {
     height: 200,
-    },
+  },
   notesInput: {
     height: '100%',
     textAlignVertical: 'top',
   },
-  attachmentButton: {
-    backgroundColor: Colors.light,
-    height: 60,
-    marginVertical: 5,
-    justifyContent: 'center',
-  },
-  attachmentButtonText: {
+  screenTitle: {
+    fontSize: 24,
+    fontWeight: '600',
     color: Colors.dark,
+    flex: 1,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  textInput: {
     fontSize: 16,
-    textAlign: 'left',
-    paddingHorizontal: 12,
+    padding: 12,
+    color: Colors.dark,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 50,
+    backgroundColor: Colors.veryLight,
   },
 });
 

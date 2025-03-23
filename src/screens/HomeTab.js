@@ -1,14 +1,13 @@
-// src/screens/HomeTab.js
 import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+
 import Colors from '../constants/colors';
 import BaseButton from '../components/Buttons/BaseButton';
 import {PlaneTextButton} from '../components/Buttons/LabelButton';
@@ -39,10 +38,10 @@ const TRANSACTIONS = [
 const HomeTab = () => {
   const dataToShow = TRANSACTIONS;
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
+    <BaseButton
+      onClickedBackgroundColor={Colors.light}
       style={styles.transactionItem}
       onPress={() => navigation.navigate("TransactionDetailsScreen", { transaction: item })}
     >
@@ -61,19 +60,8 @@ const HomeTab = () => {
         </Text>
         <Text style={styles.category}>{item.category}</Text>
       </View>
-    </TouchableOpacity>
+    </BaseButton>
   );
-
-  const onLeftPress = () => {
-    // e.g., close modal
-    setShowModal(false);
-  };
-
-  const onRightPress = () => {
-    // e.g., confirm action, then close
-    console.log('Confirmed expense');
-    setShowModal(false);
-  };
 
   return (
   <FlatList
@@ -128,30 +116,131 @@ const HomeTab = () => {
 export default HomeTab;
 
 const styles = StyleSheet.create({
-  // The entire list background, bottom padding
-  listContainer: {
-    backgroundColor: Colors.veryLight,
-    paddingBottom: 20,
-  },
-
-  // Container for the top header
-  headerContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 30,
-    paddingBottom: 20,
-  },
-
-  // The top section with the blue background
-  topSection: {
-    backgroundColor: Colors.highlight,
-    padding: 20,
+  addButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
     alignItems: 'center',
-    marginBottom: 20,
+    justifyContent: 'center',
+  },
+  addButtonIcon: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  amount: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  category: {
+    fontSize: 12,
+    color: Colors.medium,
+  },
+  circleIcon: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  date: {
+    fontSize: 12,
+    color: Colors.medium,
+  },
+  expense: {
+    color: 'red',
+  },
+  expenseBox: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    flex: 1,
+    marginLeft: 8,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+  },
+  expenseText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: Colors.veryLight,
   },
   headerPadding: {
     paddingHorizontal: 20,
     paddingBottom: 10,
     backgroundColor: Colors.veryLight,
+  },
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ieTextContainer: {
+    alignItems: 'flex-start',
+    backgroundColor: 'transparent',
+    marginRight: 20,
+  },
+  income: {
+    color: 'green',
+  },
+  incomeBox: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    flex: 1,
+    marginRight: 8,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+  },
+  incomeText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: Colors.veryLight,
+  },
+  incomeExpenseRow: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  label: {
+    fontSize: 12,
+    color: Colors.veryLight,
+  },
+  listContainer: {
+    backgroundColor: Colors.veryLight,
+    paddingBottom: 20,
+  },
+  midContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  recentTransactions: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: Colors.dark,
+  },
+  rightContainer: {
+    alignItems: 'flex-end',
+  },
+  title: {
+    fontSize: 16,
+    color: Colors.dark,
+    marginBottom: 3,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  topSection: {
+    backgroundColor: Colors.highlight,
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 20,
   },
   totalBalanceLabel: {
     fontSize: 18,
@@ -166,88 +255,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  incomeExpenseRow: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  incomeBox: {
-    backgroundColor: 'rgba(255,255,255,0.15)',
-    flex: 1,
-    marginRight: 8,
-    borderRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-  },
-  expenseBox: {
-    backgroundColor: 'rgba(255,255,255,0.15)',
-    flex: 1,
-    marginLeft: 8,
-    borderRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-  },
-  circleIcon: {
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  ieTextContainer: {
-    alignItems: 'flex-start',
-    backgroundColor: 'transparent',
-    marginRight: 20,
-  },
-  incomeText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.veryLight,
-  },
-  expenseText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.veryLight,
-  },
-  addButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.35)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  addButtonIcon: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  label: {
-    fontSize: 12,
-    color: Colors.veryLight,
-  },
-
-  // Title row for the transactions
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  recentTransactions: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: Colors.dark,
-  },
-  viewAll: {
-    fontSize: 14,
-    color: Colors.highlight,
-    fontWeight: '500',
-  },
-
-  // Transaction item
   transactionItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -255,43 +262,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 0.5,
     borderBottomColor: '#eee',
+    backgroundColor: Colors.veryLight,
   },
-  iconBox: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  midContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 16,
-    color: Colors.dark,
-    marginBottom: 3,
-  },
-  date: {
-    fontSize: 12,
-    color: Colors.medium,
-  },
-  rightContainer: {
-    alignItems: 'flex-end',
-  },
-  amount: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  income: {
-    color: 'green',
-  },
-  expense: {
-    color: 'red',
-  },
-  category: {
-    fontSize: 12,
-    color: Colors.medium,
+  viewAll: {
+    fontSize: 14,
+    color: Colors.highlight,
+    fontWeight: '500',
   },
 });

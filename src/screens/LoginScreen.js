@@ -1,4 +1,3 @@
-// src/screens/LoginScreen.js
 import React, { useState } from 'react';
 import {
   View,
@@ -102,32 +101,21 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomText: {
+    fontSize: 14,
+    color: Colors.medium,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
     paddingHorizontal: 20,
     paddingTop: 40,
     alignItems: 'center', // Center logo horizontally
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '600',
-    textAlign: 'center',
-    lineHeight: 26,
-    marginBottom: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    height: 60,
-    backgroundColor: Colors.light,
-    borderRadius: 8,
-    marginBottom: 15,
-    padding: 10,
   },
   emailInput: {
     fontSize: 16,
@@ -148,6 +136,28 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.highlight // Blue color for forgot password
   },
+  googleIcon: {
+    marginRight: 10,
+  },
+  googleLoginButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',       // full width button
+    height: 55,
+    borderRadius: 8,
+    backgroundColor: Colors.light,
+    marginVertical: 10,
+  },
+  googleText: {
+    fontSize: 16,
+    color: Colors.dark,
+  },
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 40,
+  },
   loginButton: {
     backgroundColor: Colors.highlight,
     paddingVertical: 14,
@@ -155,11 +165,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     marginBottom: 25,
-  },
-  loginButtonText: {
-    color: Colors.light,
-    fontSize: 16,
-    fontWeight: '500',
   },
   orContainer: {
     flexDirection: 'row',
@@ -177,40 +182,11 @@ const styles = StyleSheet.create({
     color: Colors.medium,
     fontSize: 14,
   },
-  googleLoginButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',         // full width button
-    height: 55,
-    borderRadius: 8,
-    backgroundColor: Colors.light,
-    marginVertical: 10,
-  },
-  googleIcon: {
-    marginRight: 10,
-  },
-  googleText: {
-    fontSize: 16,
-    color: Colors.dark,
-  },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottomText: {
-    fontSize: 14,
-    color: Colors.medium,
-  },
-  registerNowButton: {
-    backgroundColor: 'transparent',
-    paddingVertical: 5,
-    paddingHorizontal:0,
-  },
-  registerNow: {
-    fontSize: 14,
-    color: Colors.highlight,
+  title: {
+    fontSize: 22,
     fontWeight: '600',
+    textAlign: 'center',
+    lineHeight: 26,
+    marginBottom: 20,
   },
 });

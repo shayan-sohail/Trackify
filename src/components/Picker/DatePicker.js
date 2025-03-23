@@ -26,7 +26,7 @@ const DatePicker = ({ visible, onDateChange, initialDate = new Date(), onRequest
       animationType="fade"
       onRequestClose={onRequestClose}
     >
-      <View style={styles.pickerContainer}>
+      <View style={styles.container}>
         <DateTimePicker
           value={date}
           mode="date"
@@ -42,7 +42,7 @@ const DatePicker = ({ visible, onDateChange, initialDate = new Date(), onRequest
 export default DatePicker;
 
 const styles = StyleSheet.create({
-  pickerContainer: {
+  container: {
     backgroundColor: '#fff',
     width: width * 0.85, // Numeric value instead of percentage string
     alignSelf: 'center',

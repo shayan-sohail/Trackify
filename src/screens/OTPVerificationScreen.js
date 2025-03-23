@@ -84,40 +84,17 @@ const OTPVerificationScreen = () => {
 export default OTPVerificationScreen;
 
 const styles = StyleSheet.create({
+  bottomRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.dark,
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: Colors.medium,
-    textAlign: 'center',
-    marginBottom: 30,
-  },
-  otpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-    marginBottom: 30,
-  },
-  otpBox: {
-    width: 50,
-    height: 50,
-    borderWidth: 1,
-    borderColor: Colors.medium,
-    borderRadius: 8,
-    textAlign: 'center',
-    fontSize: 24,
-    backgroundColor: Colors.light,
   },
   loginButton: {
     backgroundColor: Colors.highlight,
@@ -132,24 +109,37 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  otpBox: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderColor: Colors.medium,
+    borderRadius: 8,
+    textAlign: 'center',
+    fontSize: 24,
+    backgroundColor: Colors.light,
+  },
+  otpContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+    marginBottom: 30,
+  },
   resendText: {
     fontSize: 14,
     color: Colors.medium,
     textAlign: 'center',
   },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+  subtitle: {
+    fontSize: 16,
+    color: Colors.medium,
+    textAlign: 'center',
+    marginBottom: 30,
   },
-  registerNow: {
-    fontSize: 14,
-    color: Colors.highlight,
-    fontWeight: '600',
-  },
-  registerNowButton: {
-    backgroundColor: 'transparent',
-    paddingVertical: 0,
-    paddingHorizontal:0
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.dark,
+    marginBottom: 10,
   },
 });

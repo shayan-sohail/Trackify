@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import BaseButton from '../components/Buttons/BaseButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMultiPickerButtonWithModal from '../components/Buttons/IconMultiPickerButtonWithModal';
 import IconPickerButtonWithModal from '../components/Buttons/IconPickerButtonWithModal';
 import IconPickerButtonCycling from '../components/Buttons/IconPickerButtonCycling';
 import Colors from '../constants/colors';
-import BaseButton from '../components/Buttons/BaseButton';
 
-// Using the same transaction data from HomeTab
 const TRANSACTIONS = [
   { id: '1', title: 'Electricity Bill', date: new Date('2024-03-13T17:30:00'), amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
   { id: '2', title: 'Home Insurance', date: new Date('2024-03-13T17:30:00'), amount: '+$2,89.50', category: 'Rent', color: '#D4F8D4', icon: 'magnify' },
@@ -97,6 +97,7 @@ const LogsTab = () => {
             onSelect={setSelectedDates}
             showLabel={true}
             chevronType='double'
+            style={styles.filterButton}
             size={15}
           />
           <IconMultiPickerButtonWithModal
@@ -125,9 +126,63 @@ const LogsTab = () => {
 };
 
 const styles = StyleSheet.create({
+  amount: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  category: {
+    fontSize: 12,
+    color: Colors.medium,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.veryLight,
+  },
+  date: {
+    fontSize: 12,
+    color: Colors.medium,
+  },
+  expense: {
+    color: 'red',
+  },
+  filterButton: {
+    paddingHorizontal: 6,
+    paddingVertical: 6,
+  },
+  filtersContainer: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.dark,
+  },
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  income: {
+    color: 'green',
+  },
+  listContainer: {
+    paddingBottom: 20,
+  },
+  midContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  rightContainer: {
+    alignItems: 'flex-end',
+  },
+  title: {
+    fontSize: 16,
+    color: Colors.dark,
+    marginBottom: 3,
   },
   titleRow: {
     flexDirection: 'row',
@@ -138,22 +193,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: Colors.veryLight,
   },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.dark,
-  },
-  filtersContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  filterButton: {
-    paddingHorizontal: 8,
-  },
-  listContainer: {
-    paddingBottom: 20,
-  },
-  // Copy all transaction item related styles from HomeTab
   transactionItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -162,44 +201,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: '#eee',
     backgroundColor: Colors.veryLight,
-  },
-  iconBox: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  midContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 16,
-    color: Colors.dark,
-    marginBottom: 3,
-  },
-  date: {
-    fontSize: 12,
-    color: Colors.medium,
-  },
-  rightContainer: {
-    alignItems: 'flex-end',
-  },
-  amount: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  income: {
-    color: 'green',
-  },
-  expense: {
-    color: 'red',
-  },
-  category: {
-    fontSize: 12,
-    color: Colors.medium,
   },
 });
 

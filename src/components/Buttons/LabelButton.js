@@ -183,6 +183,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
   planeTextButton: {
     padding: 0,
     flexDirection: 'row',
@@ -192,10 +196,6 @@ const styles = StyleSheet.create({
   planeTextlabel: {
     fontSize: 14,
     fontWeight: '500',
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
   },
 });
 

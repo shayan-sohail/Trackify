@@ -239,8 +239,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.dark,
   },
+  checkIcon: {
+    width: 24,
+    marginRight: 12,
+  },
   chevron: {
     marginLeft: 4,
+  },
+  headerControls: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  headerButton: {
+    padding: 4,
+    borderRadius: 4,
+  },
+  headerButtonActive: {
+    backgroundColor: Colors.light,
   },
   modalOverlay: {
     flex: 1,
@@ -274,9 +289,6 @@ const styles = StyleSheet.create({
     color: Colors.dark,
     flex: 1,
   },
-  checkIcon: {
-    width: 24,
-  },
   modalHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -285,24 +297,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.light,
   },
-  headerControls: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  headerButton: {
-    padding: 4,
-    borderRadius: 4,
-  },
-  headerButtonActive: {
-    backgroundColor: Colors.light,
-  },
   modalTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: Colors.dark,
-  },
-  checkIcon: {
-    marginRight: 12,
   },
 });
 

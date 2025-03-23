@@ -1,7 +1,7 @@
-// src/screens/LoadingScreen.js
 import React, { useEffect } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import Colors from '../constants/colors';
 
 const LoadingScreen = () => {

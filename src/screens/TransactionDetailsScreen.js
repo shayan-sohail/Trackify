@@ -25,7 +25,7 @@ const TransactionDetailsScreen = () => {
   const [attachment, setAttachment] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isModified, setIsModified] = useState(false);
-  const [showMoreFields, setShowMoreFields] = useState(true);
+  const [showMoreFields, setShowMoreFields] = useState(false);
 
   useEffect(() => {
     if (transaction) {

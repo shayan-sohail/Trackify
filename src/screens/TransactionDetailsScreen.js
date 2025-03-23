@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Dimensions, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import ComboBox from '../components/ComboBox';
-import MyDatePicker from '../components/MyDatePicker';
+import PlaneTextPicker from '../components/Picker/PlaneTextPicker';
+import DatePicker from '../components/Picker/DatePicker';
 import Colors from '../constants/colors';
 import BiStateModalBox from '../components/BiStateModalBox';
 import {HighlightLabelButton, PlaneLabelButton} from '../components/Buttons/LabelButton';
+import PlaneTextInput from '../components/TextInput/PlaneTextInput';
 import IconButton from '../components/Buttons/IconButton';
 
 
@@ -142,7 +143,7 @@ const TransactionDetailsScreen = () => {
       <ScrollView style={styles.scrollContainer}>
       <View style={styles.form}>
         <Text style={styles.label}>Category</Text>
-        <ComboBox
+        <PlaneTextPicker
           items={categories}
           selectedValue={category}
           onValueChange={(value) => handleFieldChange('category', value)}
@@ -150,7 +151,7 @@ const TransactionDetailsScreen = () => {
 
         <Text style={styles.label}>Amount</Text>
         <View style={styles.inputContainer}>
-          <TextInput
+          <PlaneTextInput
             style={styles.textInput}
             placeholder="Enter amount"
             placeholderTextColor={Colors.medium}
@@ -172,7 +173,7 @@ const TransactionDetailsScreen = () => {
 
         <Text style={styles.label}>Name</Text>
         <View style={styles.inputContainer}>
-          <TextInput
+          <PlaneTextInput
             style={styles.textInput}
             placeholder="Enter transaction name"
             placeholderTextColor={Colors.medium}
@@ -198,7 +199,7 @@ const TransactionDetailsScreen = () => {
           <>
             <Text style={styles.label}>Notes</Text>
             <View style={[styles.inputContainer, styles.notesContainer]}>
-              <TextInput
+              <PlaneTextInput
                 style={[styles.textInput, styles.notesInput]}
                 placeholder="Enter notes"
                 placeholderTextColor={Colors.medium}
@@ -237,7 +238,7 @@ const TransactionDetailsScreen = () => {
         />
       </View>
 
-      <MyDatePicker
+      <DatePicker
         visible={showDatePicker}
         initialDate={date}
         onDateChange={(newDate) => {

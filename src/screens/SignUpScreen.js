@@ -151,7 +151,7 @@ const SignUpScreen = () => {
       {/* Social button */}
       <BaseButton
         style={styles.googleLoginButton}
-        onPress={() => console.log('Login with Google pressed')}
+        onPress={() => navigation.replace('OTPVerificationScreen')}
         onClickedBackgroundColor={Colors.mediumLight}
         onClickedTextColor={Colors.veryDark}
       >

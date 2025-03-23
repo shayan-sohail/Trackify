@@ -1,12 +1,12 @@
-// src/components/MyDatePicker.js
+// src/components/DatePicker.js
 import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, Platform, StyleSheet, Dimensions } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import Colors from '../constants/colors';
+import Colors from '../../constants/colors';
 
 const { width } = Dimensions.get('window');
 
-const MyDatePicker = ({ visible, onDateChange, initialDate = new Date(), onRequestClose }) => {
+const DatePicker = ({ visible, onDateChange, initialDate = new Date(), onRequestClose }) => {
   const [date, setDate] = useState(initialDate);
 
   const handleChange = (event, selectedDate) => {
@@ -39,7 +39,7 @@ const MyDatePicker = ({ visible, onDateChange, initialDate = new Date(), onReque
   );
 };
 
-export default MyDatePicker;
+export default DatePicker;
 
 const styles = StyleSheet.create({
   pickerContainer: {

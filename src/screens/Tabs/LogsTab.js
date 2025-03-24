@@ -1,16 +1,16 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, useContext, forwardRef } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, BackHandler, Easing } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Popover, { PopoverMode } from 'react-native-popover-view';
 
-import Sidebar from '../../components/Sidebar';
-// import IconButton from '../../components/Buttons/IconButton';
 import BaseButton from '../../components/Buttons/BaseButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMultiPickerButtonWithModal from '../../components/Buttons/IconMultiPickerButtonWithModal';
 import IconPickerButtonWithModal from '../../components/Buttons/IconPickerButtonWithModal';
 import IconPickerButtonCycling from '../../components/Buttons/IconPickerButtonCycling';
 import Colors from '../../constants/colors';
+
+import { RightDrawerContext } from '../HomeContainerScreen';  // Add this import
 
 const TRANSACTIONS = [
   { id: '1', title: 'Electricity Bill', date: new Date('2024-03-13T17:30:00'), amount: '-$2,89.50', category: 'Utility', color: '#FFCFCF', icon: 'magnify' },
@@ -61,9 +61,9 @@ const LogsTab = () => {
   const [selectedDates, setSelectedDates] = useState(0);
   const [selectedIconIndex, setSelectedIconIndex] = useState(0);
   const [selectionCount, setSelectionCount] = useState(0);
-  const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectionBarVisible, setSelectionBarVisible] = useState(false);
   const [showPopover, setShowPopover] = useState(false);
+  const { openRightDrawer } = useContext(RightDrawerContext);  // Add this line
 
   const [selectedItems, setSelectedItems] = useState(new Set());
   
@@ -187,21 +187,13 @@ const LogsTab = () => {
 
   return (
     <>
-    {/* Always render Sidebar */}
-    <Sidebar
-        visible={drawerVisible}
-        onClose={()=>setDrawerVisible(false)}
-        drawerOffset={0}
-      />
-      
       {!selectionBarVisible && (<View style={styles.topBar}>
         <IconButton
           iconName="menu"
           size={ICON_SIZE}
           color= {Colors.dark}
-          onPress={(state) => setDrawerVisible(true)}
+          onPress={() => openRightDrawer()} 
           style={styles.iconButton}
-          value={drawerVisible}
         />
 
         <View style={styles.rightIcons}>

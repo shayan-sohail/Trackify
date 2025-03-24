@@ -1,24 +1,23 @@
-import React from 'react';
+// src/components/CustomDrawer.js
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
+  Animated,
   Image,
+  Easing,
   StyleSheet,
 } from 'react-native';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
 import Colors from '../constants/colors';
-import { PlaneIconLabelButton } from '../components/Buttons/IconLabelButton';
+import {PlaneIconLabelButton} from '../components/Buttons/IconLabelButton';
 
 const ICON_SIZE = 18;
 const BTN_CLICKED_CLR = Colors.light;
 
-const CustomDrawer = (props) => {
+const CustomDrawer = () => {
+
   return (
-    <View style={styles.container}>
-      <DrawerContentScrollView {...props}>
+    <View style={[styles.container]}>
         <View style={styles.drawerHeader}>
           <Image
             source={require('../assets/icon.png')}
@@ -27,10 +26,7 @@ const CustomDrawer = (props) => {
           />
         </View>
 
-        {/* Default drawer items */}
-        <DrawerItemList {...props} />
-
-        {/* Custom Menu Items */}
+        {/* Menu Items */}
         <View style={styles.menuList}>
           <PlaneIconLabelButton style={styles.menuItem} 
             iconName='clock-outline' 
@@ -54,6 +50,39 @@ const CustomDrawer = (props) => {
             labelStyle={styles.menuItemText}
           />
           
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName='movie-outline' 
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
+            onClickedBackgroundColor={BTN_CLICKED_CLR}
+            iconStyle={styles.menuIcon} 
+            label='Videos'
+            onPress={() => console.log('Videos pressed')} 
+            labelStyle={styles.menuItemText}
+          />
+
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName='music-note-outline' 
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
+            onClickedBackgroundColor={BTN_CLICKED_CLR}
+            iconStyle={styles.menuIcon} 
+            label='Audios'
+            onPress={() => console.log('Audios pressed')} 
+            labelStyle={styles.menuItemText}
+          />
+
+          <PlaneIconLabelButton style={styles.menuItem} 
+            iconName="file-outline"
+            iconSize={ICON_SIZE} 
+            iconColor={Colors.dark}
+            onClickedBackgroundColor={BTN_CLICKED_CLR}
+            iconStyle={styles.menuIcon} 
+            label='Documents'
+            onPress={() => console.log('Documents pressed')} 
+            labelStyle={styles.menuItemText}
+          />
+
           {/* Separator */}
           <View style={styles.separator} />
           
@@ -68,23 +97,33 @@ const CustomDrawer = (props) => {
             labelStyle={[styles.menuItemText, { color: Colors.highlight }]}
           />    
         </View>
-      </DrawerContentScrollView>
-
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Custom Drawer Footer</Text>
-      </View>
     </View>
   );
 };
 
+export default CustomDrawer;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.light,
+    marginTop: 60,
+  },
+  drawerContainer: {
+    height: '100%',
+    backgroundColor: '#fff',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    zIndex: 999,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
   drawerHeader: {
     height: 60,
-    paddingVertical: 40,
+    paddingVertical:40,
     justifyContent: 'center',
     borderBottomWidth: 0.2,
     borderBottomColor: '#ccc',
@@ -118,16 +157,4 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  footer: {
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: Colors.medium + '20',
-    backgroundColor: Colors.light,
-  },
-  footerText: {
-    fontSize: 14,
-    color: Colors.dark,
-  },
 });
-
-export default CustomDrawer;

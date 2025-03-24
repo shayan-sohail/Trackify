@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,12 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import Sidebar from '../../components/Sidebar';
 import Colors from '../../constants/colors';
 import IconButton from '../../components/Buttons/IconButton';
 import BaseButton from '../../components/Buttons/BaseButton';
 import {PlaneTextButton} from '../../components/Buttons/LabelButton';
+
+import { RightDrawerContext } from '../HomeContainerScreen';  // Add this import
 
 const ICON_SIZE = 25;
 
@@ -40,7 +41,7 @@ const TRANSACTIONS = [
 const HomeTab = () => {
   const dataToShow = TRANSACTIONS;
   const navigation = useNavigation();
-  const [drawerVisible, setDrawerVisible] = useState(false);
+  const { openRightDrawer } = useContext(RightDrawerContext);  // Add this line
 
   const renderItem = ({ item }) => (
     <BaseButton
@@ -68,20 +69,13 @@ const HomeTab = () => {
 
   return (
     <>
-      {/* Always render Sidebar */}
-      <Sidebar
-        visible={drawerVisible}
-        onClose={()=>setDrawerVisible(false)}
-        drawerOffset={0}
-      />
       <View style={styles.topBar}>
         <IconButton
           iconName="menu"
           size={ICON_SIZE}
           color= {Colors.veryLight}
           style={styles.iconButton}
-          onPress={(state) => setDrawerVisible(true)}
-          value={drawerVisible}
+          onPress={() => openRightDrawer()} 
         />
 
         <View style={styles.rightIcons}>
